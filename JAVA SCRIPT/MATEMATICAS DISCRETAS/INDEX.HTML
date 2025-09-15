@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <script src="operadores.js"></script>
+    <script src="modulosTablas.js"></script>
+    <script src="createTable.js"></script>
+
+</head>
+<body>
+    <h1>TABLAS DE VERDAD</h1>
+    
+    <div id="prposicion1">
+    <h2>PROPOSICION A:</h2>
+    <p>
+        A = [(
+        <span class="input-container"><small>Op.1</small><input type="text" class="operadores1" readonly></span>
+        p
+        <span class="input-container"><small>Op.2</small><input type="text" class="operadores1" readonly></span>
+        <span class="input-container"><small>Op.3</small><input type="text" class="operadores1" readonly></span>
+        q)
+        <span class="input-container"><small>Op.4</small><input type="text" class="operadores1" readonly></span>
+        (
+        <span class="input-container"><small>Op.5</small><input type="text" class="operadores1" readonly></span>
+        p
+        <span class="input-container"><small>Op.6</small><input type="text" class="operadores1" readonly></span>
+        s)]
+        <span class="input-container"><small>Op.7</small><input type="text" class="operadores1" readonly></span>
+        (s
+        <span class="input-container"><small>Op.8</small><input type="text" class="operadores1" readonly></span>
+        q)
+    </p>
+
+        <p><span>Operador 1:</span>
+        <select id="operadores1" class="operadoresSelection1" id="operadorA1">
+            <option value=""></option>
+            <option value="¬" selected>¬</option>
+        </select></p>
+        <p><span>Operador 2:</span>
+        <select id="operadores1" class="operadoresSelection1" id= "operadorA2">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨">∨</option>
+            <option value="→">→</option>
+            <option value="↔" selected>↔</option>
+        </select></p>
+        <p><span>Operador 3:</span>
+        <select id="operadores1" class="operadoresSelection1" id = "operadorA3">
+            <option value=""></option>
+            <option value="¬">¬</option>
+        </select></p>
+        <p><span>Operador 4:</span>
+        <select id="operadores1" class="operadoresSelection1" id="operadorA4">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨">∨</option>
+            <option value="→" selected>→</option>
+            <option value="↔">↔</option>
+        </select></p>
+        <p><span>Operador 5:</span>
+        <select id="operadores1"  class="operadoresSelection1" id="operadorA5">
+            <option value=""></option>
+            <option value="¬" selected>¬</option>
+        </select></p>
+        <p><span>Operador 6:</span>
+        <select id="operadores1" class="operadoresSelection1" id="operadorA6">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨" selected>∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select></p>
+        <p><span>Operador 7:</span>
+        <select id="operadores1" class="operadoresSelection1" id="operadorA7">
+            <option value=""></option>
+            <option value="∧" selected>∧</option>
+            <option value="∨">∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select></p>
+        <p><span>Operador 8:</span>
+        <select id="operadores1" class="operadoresSelection1" id="operadorA8">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨">∨</option>
+            <option value="→">→</option>
+            <option value="↔" selected>↔</option>
+        </select></p>
+        <button onclick="generateTable()">GENERAR TABLA</button>
+    </div>
+    <br>
+    <div id="tabla1">
+        <h2>TABLA A:</h2>
+
+    </div>
+<br>
+<div id="prposicion2">
+    <h2>PROPOSICION B:</h2>
+    <p>
+        B = [(
+        <span class="input-container"><small>Op.1</small><input type="text" class="operadores2" readonly></span> 
+        p
+        <span class="input-container"><small>Op.2</small><input type="text" class="operadores2" readonly></span>
+        <span class="input-container"><small>Op.3</small><input type="text" class="operadores2" readonly></span>
+        q)
+        <span class="input-container"><small>Op.4</small><input type="text" class="operadores2" readonly></span>
+        <span class="input-container"><small>Op.5</small><input type="text" class="operadores2" readonly></span>
+        r]
+        <span class="input-container"><small>Op.6</small><input type="text" class="operadores2" readonly></span>
+        [(
+        <span class="input-container"><small>Op.7</small><input type="text" class="operadores2" readonly></span>
+        r
+        <span class="input-container"><small>Op.8</small><input type="text" class="operadores2" readonly></span>
+        <span class="input-container"><small>Op.9</small><input type="text" class="operadores2" readonly></span>
+        t)
+        <span class="input-container"><small>Op.10</small><input type="text" class="operadores2" readonly></span>
+        (q
+        <span class="input-container"><small>Op.11</small><input type="text" class="operadores2" readonly></span>
+        t)] 
+    </p>
+        
+        <p><span>Operador 1:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB1">
+            <option value=""></option>
+            <option value="¬" selected>¬</option>
+        </select></p>
+        <p><span>Operador 2:</span>
+        <select id="operadores1" class="operadoresSelection2" id= "operadorB2">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨">∨</option>
+            <option value="→"selected>→</option>
+            <option value="↔">↔</option>
+        </select></p>
+        <p><span>Operador 3:</span>
+        <select id="operadores1" class="operadoresSelection2" id = "operadorB3">
+            <option value=""></option>
+            <option value="¬" selected>¬</option>
+        </select></p>
+        <p><span>Operador 4:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB4">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨">∨</option>
+            <option value="→">→</option>
+            <option value="↔" selected>↔</option>
+        </select></p>
+        <p><span>Operador 5:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB5">
+            <option value=""></option>
+            <option value="¬">¬</option>
+        </select></p>
+        <p><span>Operador 6:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB6">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨">∨</option>
+            <option value="→">→</option>
+            <option value="↔" selected>↔</option>
+        </select></p>
+        <p><span>Operador 7:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB7">
+            <option value=""></option>
+            <option value="¬" selected>¬</option>
+        </select></p>
+        <p><span>Operador 8:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB8">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨" selected>∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select></p>
+        <p><span>Operador 9:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB9">
+            <option value=""></option>
+            <option value="¬" selected>¬</option>
+        </select></p>
+        <p><span>Operador 10:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB10">
+            <option value=""></option>
+            <option value="∧">∧</option>
+            <option value="∨">∨</option>
+            <option value="→" selected>→</option>
+            <option value="↔">↔</option>
+        </select></p>
+        <p><span>Operador 11:</span>
+        <select id="operadores1" class="operadoresSelection2" id="operadorB11">
+            <option value=""></option>
+            <option value="∧" selected>∧</option>
+            <option value="∨">∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select></p>
+        <button onclick="generateTable2()">GENERAR TABLA</button>
+    </div>
+    <br>
+    <div id="tabla2">
+        <h2>TABLA B:</h2>
+
+    </div>
+
+</body>
+</html>
