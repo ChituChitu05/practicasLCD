@@ -1,9 +1,7 @@
 #include <stdio.h>
-
-int main(){
+void main(){
     char men1[] = "Hola";
     char men2[] = "todos";
-
-    printf("%s % c %s\n", men1, 97 , men2);
-    return 0;
+    printf("%s a %s\n", men1, men2);
+    return;
 }
