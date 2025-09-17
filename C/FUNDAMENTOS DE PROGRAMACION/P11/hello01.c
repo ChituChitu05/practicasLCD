@@ -1,6 +1,5 @@
 #include <stdio.h>
-
 int main(){
-    printf("%cola a todos\n",0x48);
+    printf("Hola%ca to\x64os\n",040);
     return 0;
 }
