@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inferencias Logicas</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+    <script src="operadores.js"></script>
+    <script src="modulos.js"></script>
+</head>
+
+<body>
+    <h2>Argumento Lógico</h2>
+
+    <div class="operadores">
+        <select>
+            <option value="" selected></option>
+            <option value="¬">¬</option>
+        </select>
+        (p
+        <select>
+            <option value="∧">∧</option>
+            <option value="∨" selected>∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select>
+        q)
+    </div>
+
+    <div class="operadores">
+        <select>
+            <option value="" selected></option>
+            <option value="¬">¬</option>
+        </select>
+        (p
+        <select>
+            <option value="∧">∧</option>
+            <option value="∨" selected>∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select>
+        r)
+    </div>
+
+    <div class="operadores">
+        <select>
+            <option value="" selected></option>
+            <option value="¬">¬</option>
+        </select>
+        (
+        <select>
+            <option value="" selected></option>
+            <option value="¬">¬</option>
+        </select>
+        p
+        <select>
+            <option value="∧">∧</option>
+            <option value="∨" selected>∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select>
+        <select>
+            <option value="" selected></option>
+            <option value="¬">¬</option>
+        </select>
+        s)
+    </div>
+
+    <div class="operadores">
+        <select>
+            <option value="" selected></option>
+            <option value="¬">¬</option>
+        </select>
+        (r
+        <select>
+            <option value="∧">∧</option>
+            <option value="∨" selected>∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select>
+        t)
+    </div>
+
+    <div class="conclusion">
+        ∴
+        <select>
+            <option value="" selected></option>
+            <option value="¬">¬</option>
+        </select>
+        p
+        <select>
+            <option value="∧">∧</option>
+            <option value="∨" selected>∨</option>
+            <option value="→">→</option>
+            <option value="↔">↔</option>
+        </select>
+        <select>
+            <option value="" selected></option>
+            <option value="¬">¬</option>
+        </select>
+        s
+    </div>
+    <br>
+    <div>
+        <p id="resultado"></p>
+    </div>
+    <br>
+    <button onclick="generateTable()">GENERAR</button>
+</body>
+
+</html>
