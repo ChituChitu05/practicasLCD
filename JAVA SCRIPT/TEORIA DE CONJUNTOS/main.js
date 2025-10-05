@@ -1,4 +1,5 @@
 function main() {
+    const DIV_U = document.getElementById("divU");
     const CON_U = document.getElementById("conU");
     const CON_A = document.getElementById("conA");
     const CON_B = document.getElementById("conB");
@@ -25,13 +26,12 @@ function main() {
         if (n >= 0 && n <= 27) {
             
             U = createSetU(MAX_LEN.value);
-            CON_U.innerHTML = `<strong>U =</strong> {${U}}`;
+            DIV_U.innerHTML = `<strong>U =</strong> <span id="conU">{${U}}</span>`;
             
             C = createSetC(U);
-            CON_C.innerHTML = C;
             actualizarResultados(U, A, B, C, RES_1, RES_2, RES_3);
         } else {
-            CON_U.innerHTML = "El rango de números debe ser de 0 a 27";
+            DIV_U.innerHTML = "El rango de números debe ser de 0 a 27";
         }
     });
 
