@@ -19,7 +19,7 @@ function createSetB(UNIVERSE,MAX_LEN) {
     return B;
 }
 function createSetC(UNIVERSE) {
-    const C = []
+    let C = []
     for (let i = 0; i < UNIVERSE.length; ++i) {
         if (VOCALS.includes(UNIVERSE[i])) {
             C.push(UNIVERSE[i])

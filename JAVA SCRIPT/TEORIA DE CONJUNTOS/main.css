@@ -51,7 +51,6 @@ button {
 button {
     position: relative;
     background-color: #330000;
-    /* interior fijo */
     color: #cccccc;
     border: none;
     border-radius: 6px;
