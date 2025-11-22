@@ -40,11 +40,15 @@ int setanc_fig(figura*, int);
 **
 ****
 */
-int fig_tri1(figura*);
 
-
-
-
-
+int fle_arr(figura*);
+int fle_aba(figura*);
+int fle_der(figura*);
+int fle_izq(figura*);
+int rombo(figura*);
+int dos_tri1(figura*);
+int dos_tri2(figura*);
+int dos_tri3(figura*);
+int dos_tri4(figura*);
 
 #endif
