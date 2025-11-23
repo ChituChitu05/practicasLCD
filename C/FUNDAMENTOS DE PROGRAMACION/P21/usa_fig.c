@@ -36,9 +36,29 @@ int main(){
   printf("%d\n",dos_tri3(&f));
   printf("%s\n",tostr_fig(salida,&f));  
 
-  crea_fig(&f,8,8);
+  crea_fig(&f,16,4);
   printf("%d\n",dos_tri4(&f));
   printf("%s\n",tostr_fig(salida,&f));  
+  
+  crea_fig(&f,12,6);
+  printf("%d\n",dos_cuad(&f));
+  printf("%s\n",tostr_fig(salida,&f));
+
+  crea_fig(&f,8,8);
+  printf("%d\n",marco(&f));
+  printf("%s\n",tostr_fig(salida,&f));
+  
+  crea_fig(&f,8,4);
+  printf("%d\n",och_acos(&f));
+  printf("%s\n",tostr_fig(salida,&f));
+
+  crea_fig(&f,12,6);
+  printf("%d\n",cua_rec(&f));
+  printf("%s\n",tostr_fig(salida,&f));
+
+  crea_fig(&f,12,6);
+  printf("%d\n",rom_cua(&f));
+  printf("%s\n",tostr_fig(salida,&f)); 
 
   return 0;  
 }

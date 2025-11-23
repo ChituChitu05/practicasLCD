@@ -76,6 +76,7 @@ int fle_arr(figura* f){
     return DIM_INV;
   int i,j,k;
 
+  strcpy(f->sal,"");
   for(i=0; i <= f->alt/2; ++i){
     for(j=0; j < f->anc - i; ++j)
       strcat(f->sal, " ");
@@ -99,7 +100,7 @@ int fle_aba(figura* f){
   if (f->alt < 4  || f->anc < 4)
     return DIM_INV;
   int i,j,k;
-
+  strcpy(f->sal,"");
   for(i=f->alt; i > f->alt/2; --i){
     for(j=0; j < f->anc- f->anc/4 ; ++j)
       strcat(f->sal, " ");
@@ -125,6 +126,7 @@ int fle_der(figura* f){
     return DIM_INV;
 
   int i,j,k;
+  strcpy(f->sal,"");
   for(i = 0; i <=  f->alt;++i){
     for(j = 0; j < getanc_fig(f)/2;++j){
       if(i > (getalt_fig(f)/4)  && i < 3*(getalt_fig(f)/4))
@@ -146,6 +148,7 @@ int fle_der(figura* f){
   }
  return OK;
 }
+
 int fle_izq(figura* f){
   if (!ES_VAL(f))
     return AP_INV;
@@ -153,24 +156,21 @@ int fle_izq(figura* f){
     return DIM_INV;
 
   int i,j,k;
+  strcpy(f->sal,"");
   for(i = f->alt; i >= 0 ;--i){
     if(i >  getalt_fig(f)/2){
-        for(k = 0; k < i - getanc_fig(f)/2; ++k){
+        for(k = 0; k < i - getanc_fig(f)/2; ++k)
           strcat(f->sal, " ");
-        }
-        for(k = 0; k < getanc_fig(f) - i ; ++k){
+        for(k = 0; k < getanc_fig(f) - i ; ++k)
           strcat(f->sal, "*");
-        }
     }else{
-        for(k = 0; k < getanc_fig(f)/2 - i ; ++k){
+        for(k = 0; k < getanc_fig(f)/2 - i ; ++k)
           strcat(f->sal, " ");
-        }
-                for(k = 0; k < i  ; ++k){
+        
+        for(k = 0; k < i  ; ++k)
           strcat(f->sal, "*");
-        }
     }
 
-    
     for(j = 0; j < getanc_fig(f)/2;++j){
       
       if(i > (getalt_fig(f)/4)  && i < 3*(getalt_fig(f)/4))
@@ -178,7 +178,6 @@ int fle_izq(figura* f){
       else
         strcat(f->sal, " ");
     }
-
 
     strcat(f->sal, "\n");
   }
@@ -192,29 +191,30 @@ int rombo(figura*f){
     return DIM_INV;
 
   int i,j,k;
+  strcpy(f->sal,"");
   for(i = 0; i < getalt_fig(f)/2;++i){
-    for(j = 0;j < getanc_fig(f)/2 - i; ++j){
+    for(j = 0;j < getanc_fig(f)/2 - i; ++j)
       strcat(f->sal, " "); 
-    }
-    for(k = 0;k < i + 1; ++k){
+    
+    for(k = 0;k < i + 1; ++k)
       strcat(f->sal, "*"); 
-    }
-    for(k = 0;k < i ; ++k){
+    
+    for(k = 0;k < i ; ++k)
       strcat(f->sal, "*"); 
-    }
+    
     strcat(f->sal, "\n");
   }
 
   for (i = getalt_fig(f)/2 ; i < getanc_fig(f) + 1;++i){
-    for(j = 0;j < i - getanc_fig(f)/2 ; ++j){
+    for(j = 0;j < i - getanc_fig(f)/2 ; ++j)
       strcat(f->sal, " "); 
-    }
-    for(j = i - getanc_fig(f)/2;j < getanc_fig(f)/2 ; ++j){
+    
+    for(j = i - getanc_fig(f)/2;j < getanc_fig(f)/2 ; ++j)
       strcat(f->sal, "*"); 
-    }
-    for(j = i;j < getanc_fig(f) +1 ; ++j){
+    
+    for(j = i;j < getanc_fig(f) +1 ; ++j)
       strcat(f->sal, "*"); 
-    }
+    
     strcat(f->sal, "\n");
   }
   return OK;
@@ -230,6 +230,7 @@ int dos_tri1(figura* f){
     return DIM_INV;
 
   int i,j;
+  strcpy(f->sal,"");
 
   for(i = 0; i < f->alt;++i){
     for(j = 0; j < getanc_fig(f)/4 - i ;++j)
@@ -255,6 +256,7 @@ int dos_tri2(figura* f){
     return DIM_INV;
 
   int i,j;
+  strcpy(f->sal,"");
 
   for(i = 0; i < f->alt;++i){
     for(j = 0; j <  i  ;++j)
@@ -280,6 +282,7 @@ int dos_tri3(figura* f){
     return DIM_INV;
 
   int i,j;
+  strcpy(f->sal,"");
 
   for(i = 0; i < getalt_fig(f)/2 -1;++i){
     for(j = 0; j <  i+1  ;++j)
@@ -308,7 +311,208 @@ int dos_tri3(figura* f){
   return OK;
 }
 
-int dos_tri3(figura* f){
+int dos_tri4(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+
+  if (f->alt < 3 || f->anc < getalt_fig(f)*4)
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+  for (i = 0; i < f->alt;++i){
+    for(j = 0 ; j < i;++j)
+      strcat(f->sal, " ");
+    for(j = 0 ; j < (getanc_fig(f)/2) - 2*i -1;++j)
+      strcat(f->sal, "*");
+        for(j = 0 ; j < getanc_fig(f)/2 - (getanc_fig(f)/4) -1;++j)
+      strcat(f->sal, " ");
+    for(j = 0 ; j <  2*i +1;++j)
+      strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+ 
+  return OK;
+}
+
+int dos_cuad(figura*f){
+  if (!ES_VAL(f))
+    return AP_INV;
+
+  if (f->alt < 2 || f->anc < getalt_fig(f)*2)
+    return DIM_INV;
+  
+  int i,j;
+  strcpy(f->sal,"");
+  for(i = 0; i < getalt_fig(f)/2 ; ++i){
+    for(j = 0; j < getanc_fig(f)/2; ++j)
+      strcat(f->sal, " ");
+    
+    for(j = getanc_fig(f)/2; j < getanc_fig(f); ++j)
+      strcat(f->sal, "*");
+    
+    strcat(f->sal, "\n");
+  }
+
+  for(i = 0; i < getalt_fig(f)/4 -1; ++i){
+    for(j = 0; j < getanc_fig(f)/2 ; ++j){
+      strcat(f->sal, " ");
+    }
+    for(j = getanc_fig(f)/2; j < getanc_fig(f); ++j){
+      strcat(f->sal, "*");
+    }
+    strcat(f->sal, "\n");
+  }
+
+  for(i = getalt_fig(f)/4 +1; i <  getalt_fig(f); ++i){
+    for(j = 0; j < getanc_fig(f)/3 ; ++j){
+      strcat(f->sal, "*");
+    }
+    for(j = getanc_fig(f)/3; j < getanc_fig(f)/2 ; ++j){
+      strcat(f->sal, " ");
+    }
+    for(j = getanc_fig(f)/2; j < getanc_fig(f); ++j){
+      strcat(f->sal, "*");
+    }
+    strcat(f->sal, "\n");
+  }
+  return OK;
+}
+
+int marco(figura*f){
+  if (!ES_VAL(f))
+    return AP_INV;
+
+  if (f->alt < 3 || f->anc < 3)
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+
+  for(i = 0; i<round(getalt_fig(f)/4.0); ++i){
+    for(j= 0; j < getanc_fig(f);++j)
+      strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+  for(i = round(getalt_fig(f)/4.0); i < round(3*(getalt_fig(f)/4.0)); ++i){
+    for(j = 0; j < round(getalt_fig(f)/4.0);++j){
+      strcat(f->sal, "*");
+    }
+    for(j = round(getalt_fig(f)/4.0); j <  round(3*getalt_fig(f)/4.0) ;++j){
+      strcat(f->sal, " ");
+    }
+    for(j =  round(3* getalt_fig(f)/4.0) ; j < getalt_fig(f)  ;++j){
+      strcat(f->sal, "*");
+    }
+    strcat(f->sal, "\n");
+  }
+  for(i = round(3*(getalt_fig(f)/4.0)); i < getalt_fig(f); ++i){
+    for(j = 0; j < getanc_fig(f);++j)
+      strcat(f->sal, "*");
+  
+  strcat(f->sal, "\n");
+  }  
+  return OK;
+}
+
+int och_acos(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+
+  if (f->alt < 3 || f->anc < 2*(getalt_fig(f)))
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+
+  for (j = 0; j < 2; ++j) {
+    strcat(f->sal, " ");
+    for (int k = 1; k < getanc_fig(f) / 2; ++k) {
+        strcat(f->sal, "*");
+    }
+}
+strcat(f->sal, "\n");
+  
+  for(i = 0; i < getalt_fig(f)-2; ++i){
+    strcat(f->sal, "*");
+     for(j=0;j < (getanc_fig(f)/2) -1; ++j){
+      strcat(f->sal, " ");
+     }
+    strcat(f->sal, "*");
+    for(j=0;j < (getanc_fig(f)/2) -1; ++j){
+      strcat(f->sal, " ");
+     }
+    strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+  for (j = 0; j < 2; ++j) {
+    strcat(f->sal, " ");
+    for (int k = 1; k < getanc_fig(f) / 2; ++k) {
+        strcat(f->sal, "*");
+    }
+  }
+
+  return OK;
+}
+
+int cua_rec(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+
+  if (f->alt < 3 || f->anc < 2*(getalt_fig(f)))
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+
+
+
+    for(j = 0; j < getanc_fig(f); ++j){
+        if(j < getanc_fig(f)/2 )
+            strcat(f->sal, "*");
+        else if(j == getanc_fig(f)/2 )
+            strcat(f->sal, " ");
+        else if(j < 3*(getanc_fig(f)/4) - 1)
+            strcat(f->sal, " ");
+        else
+            strcat(f->sal, "*");
+    }
+    strcat(f->sal, "\n");
+    for(i = 1; i < f->alt - 1; ++i) {
+        for(j = 0; j < f->anc; ++j) {
+            if(j == 0 || j ==  getanc_fig(f)/2 - 1|| j == round(getanc_fig(f)/2 +1)  || j == getanc_fig(f) - 1)
+                strcat(f->sal, "*");
+            else
+                strcat(f->sal, " ");
+        }
+        strcat(f->sal, "\n");
+    }
+    
+    for(j = 0; j < getanc_fig(f); ++j){
+        if(j < getanc_fig(f)/2 )
+            strcat(f->sal, "*");
+        else if(j == getanc_fig(f)/2 )
+            strcat(f->sal, " ");
+        else if(j < 3*(getanc_fig(f)/4) - 1)
+            strcat(f->sal, " ");
+        else
+            strcat(f->sal, "*");
+    }
+  return OK;
+}
+
+int rom_cua(figura* f){
+  /*
+crear un rombo, a lado un cuadrado
+  ejemplo:
+  *  *****
+ *** *   *
+******   *
+ *** *   *
+  *  *****
+  
+  */
+
   if (!ES_VAL(f))
     return AP_INV;
 
@@ -316,9 +520,48 @@ int dos_tri3(figura* f){
     return DIM_INV;
 
   int i,j;
-  for (i=0; i < f->alt,++i){
+  strcpy(f->sal,"");
+  for(i = 0; i < getalt_fig(f)/2;++i){
+    for(j = 0;j < getanc_fig(f)/4 - i; ++j)
+      strcat(f->sal, " "); 
     
+    for(j = 0;j < (2*i) + 1; ++j)
+      strcat(f->sal, "*"); 
+    for(j = 0;j < getanc_fig(f)/4 -i; ++j)
+      strcat(f->sal, " ");
+
+    for(j = 0; j < getanc_fig(f)/2 ; ++j){
+      if(i == 0 || i == getalt_fig(f) -1)
+        strcat(f->sal, "*");
+      else if(j == 0 || j == (getanc_fig(f)/2) -1)
+        strcat(f->sal, "*");
+      else if(j != 0 || j != (getanc_fig(f)/2) -1){
+        strcat(f->sal, " ");
+      }
+    }
+    strcat(f->sal, "\n");
   }
- 
+  for( i = 0 ; i < getalt_fig(f)/2 ;++i){
+    for(j = 0;j < i  ; ++j)
+      strcat(f->sal, " "); 
+    printf("%d", getanc_fig(f)/2 -i);
+    for(j = 0;j < getanc_fig(f)/2 -(2*(i)); ++j)
+      strcat(f->sal, "*"); 
+    
+    for(j = 0;j < i +1; ++j)
+      strcat(f->sal, " "); 
+
+    for(j = 0; j < getanc_fig(f)/2 ; ++j){
+      if(i == getalt_fig(f)/2 -1)
+        strcat(f->sal, "*");
+      else if(j == 0 || j == (getanc_fig(f)/2) -1)
+        strcat(f->sal, "*");
+      else if(j != 0 || j != (getanc_fig(f)/2) -1){
+        strcat(f->sal, " ");
+      }
+    }
+
+    strcat(f->sal, "\n");
+  }
   return OK;
 }

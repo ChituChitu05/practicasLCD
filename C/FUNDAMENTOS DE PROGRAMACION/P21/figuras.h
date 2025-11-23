@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 /*Macros*/
 #define ES_VAL(AP)        ((AP)!=NULL)
 /*Errores*/
@@ -50,5 +51,10 @@ int dos_tri1(figura*);
 int dos_tri2(figura*);
 int dos_tri3(figura*);
 int dos_tri4(figura*);
+int dos_cuad(figura*);
+int marco(figura*);
+int och_acos(figura*);
+int cua_rec(figura*);
+int rom_cua(figura*);
 
 #endif
