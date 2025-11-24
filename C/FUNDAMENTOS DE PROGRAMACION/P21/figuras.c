@@ -502,17 +502,6 @@ int cua_rec(figura* f){
 }
 
 int rom_cua(figura* f){
-  /*
-crear un rombo, a lado un cuadrado
-  ejemplo:
-  *  *****
- *** *   *
-******   *
- *** *   *
-  *  *****
-  
-  */
-
   if (!ES_VAL(f))
     return AP_INV;
 
@@ -544,7 +533,6 @@ crear un rombo, a lado un cuadrado
   for( i = 0 ; i < getalt_fig(f)/2 ;++i){
     for(j = 0;j < i  ; ++j)
       strcat(f->sal, " "); 
-    printf("%d", getanc_fig(f)/2 -i);
     for(j = 0;j < getanc_fig(f)/2 -(2*(i)); ++j)
       strcat(f->sal, "*"); 
     
@@ -561,6 +549,427 @@ crear un rombo, a lado un cuadrado
       }
     }
 
+    strcat(f->sal, "\n");
+  }
+  return OK;
+}
+
+int dos_casas(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+
+  if (f->alt < 3 || f->anc < getalt_fig(f)*3)
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+
+
+  for(i = 0; i < getalt_fig(f)/2 +1;++i){
+    for(j = 0;j < getanc_fig(f)/3 - i -getanc_fig(f)/8; ++j)
+      strcat(f->sal, " "); 
+    
+    for(j = 0;j < (2*i) + 1; ++j)
+      strcat(f->sal, "*"); 
+    for(j = 0;j < ((getanc_fig(f)/3 - i)*2 - getanc_fig(f)/4) ; ++j)
+      strcat(f->sal, " ");
+
+    for(j = 0;j < (2*i) + 1; ++j)
+      strcat(f->sal, "*"); 
+    strcat(f->sal, "\n");
+  }
+
+
+  for(i = 0; i < getalt_fig(f)/2;++i){
+    for(j = 0; j < getanc_fig(f) ; ++j){
+      if(j == getanc_fig(f)/10 || j == getanc_fig(f)/3 +1 || j == 1*getanc_fig(f)/2 +2  || j == getanc_fig(f) - getanc_fig(f)/10 -2)
+        strcat(f->sal, "*");
+      else
+        strcat(f->sal, " ");
+    }
+    strcat(f->sal, "\n");
+  }
+  for(j = 0; j < getanc_fig(f)-1; ++j)
+      strcat(f->sal, "*");
+  return OK;
+}
+
+int dos_rombos_huecos(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+
+  if (f->alt < 5 || f->anc < 2* getalt_fig(f))
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+
+  for (i = 0; i < getalt_fig(f)/2; i++) {
+    for (j = 0; j < getanc_fig(f)/4-i; j++)
+      strcat(f->sal, " ");
+    for (j = 0; j < 2*i + 1; j++) {
+      if (j == 0 || j == 2*i || i == getalt_fig(f)/2 -1)
+        strcat(f->sal, "*");
+      else
+         strcat(f->sal, " ");
+     }
+    for (j = 0; j < getalt_fig(f) - (2*i - 1) -1; j++){
+      strcat(f->sal, " ");
+    }
+
+    for (j = 0; j < 2*i + 1; j++) {
+      if (j == 0 || j == 2*i || j == i )
+        strcat(f->sal, "*");
+      else
+         strcat(f->sal, " ");
+     }
+    strcat(f->sal, "\n");
+  }
+for( i = getalt_fig(f)/2 +1 ; i < getalt_fig(f); i++) {
+    for (j = 0; j < i - getanc_fig(f)/4 +1; j++)
+      strcat(f->sal, " ");
+    for (j = 0; j < 2*(getalt_fig(f) - i) - 1; j++) {
+      if (j == 0 || j == 2*(getalt_fig(f) - i) - 2 || i == getalt_fig(f)/2 )
+        strcat(f->sal, "*");
+      else
+         strcat(f->sal, " ");
+     }
+    for (j = 0; j < (2*i - getalt_fig(f)) +2; j++){
+      strcat(f->sal, " ");
+    }
+
+for( j = 0; j < 2*(getalt_fig(f) - i) - 1; j++) {
+      if (j == 0 || j == 2*(getalt_fig(f) - i) - 2 || j == getalt_fig(f) - i - 1)
+        strcat(f->sal, "*");
+      else
+         strcat(f->sal, " ");
+     }
+    strcat(f->sal, "\n");
+  }
+  return OK;
+}
+
+int letra_u(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+
+  if (f->alt < 5 || f->anc < 10)
+    return DIM_INV;
+
+  int i,j;
+
+  strcpy(f->sal,"");
+  for (i = 0; i < getalt_fig(f); ++i) {
+    if (i == 0 || i == getalt_fig(f) -1) {
+      for (j = 0; j < getanc_fig(f) ; ++j)
+        strcat(f->sal, "-");
+    } else if (i <= getalt_fig(f) - 5) {
+      for (j = 0; j < getanc_fig(f); ++j) {
+        if (j == getanc_fig(f)/7  || j == getanc_fig(f)/7 + 1 || j == getanc_fig(f) - 4 || j == getanc_fig(f) - 3)
+          strcat(f->sal, "*");
+        else
+          strcat(f->sal, "-");
+      }
+    } else if (i == getalt_fig(f) - 4) {
+      for (j = 0; j < getanc_fig(f); ++j) {
+        if ((j >= getanc_fig(f)/7 + 1 && j <= getanc_fig(f)/7 + 2) || (j >= getanc_fig(f) - 5 && j <= getanc_fig(f) - 4))
+          strcat(f->sal, "*");
+        else
+          strcat(f->sal, "-");
+      }
+    } else if (i == getalt_fig(f) - 3) {
+      for (j = 0; j < getanc_fig(f); ++j) {
+        if (j >= getanc_fig(f)/7 + 2 && j <= getanc_fig(f) - 5)
+          strcat(f->sal, "*");
+        else
+          strcat(f->sal, "-");
+      }
+    } else {
+      for (j = 0; j < getanc_fig(f); ++j) {
+        if (j > getanc_fig(f)/7 + 2 && j <  getanc_fig(f) -5)
+          strcat(f->sal, "*");
+        else
+          strcat(f->sal, "-");
+      }
+    }
+    strcat(f->sal, "\n");
+  }
+
+  return OK;
+}
+
+int letra_n(figura* f){
+  if (!ES_VAL(f))  
+    return AP_INV;
+
+  if (getalt_fig(f) < 5 || getanc_fig(f) < getalt_fig(f)*2) 
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal, "");
+  for (i = 0; i < getalt_fig(f); ++i) {
+    for (j = 0; j < getanc_fig(f); ++j) {
+      if (i == 0 || i == getalt_fig(f) - 1) {
+        strcat(f->sal, "-");
+      } else if (i == 1) {
+        if (j >= getanc_fig(f)/8  +2 && j < getanc_fig(f)- getanc_fig(f)/4) 
+          strcat(f->sal, "*");
+        else 
+          strcat(f->sal, "-");
+      } else if (i == 2) {
+        if (j >= getanc_fig(f)/8  +1 && j < getanc_fig(f)- getanc_fig(f)/4 +1) 
+          strcat(f->sal, "*");
+        else 
+          strcat(f->sal, "-");
+      } else {
+        if (j == 2 || j == 3 || j == getanc_fig(f) - 4 || j == getanc_fig(f) - 3)
+          strcat(f->sal, "*");
+        else
+          strcat(f->sal, "-");
+      }
+    }
+    strcat(f->sal, "\n");
+  }
+
+  return OK;
+}
+
+int letra_x(figura*f){
+  if (!ES_VAL(f))  
+    return AP_INV;
+
+  if (getalt_fig(f) < 2*getanc_fig(f) || getanc_fig(f) < 3) 
+    return DIM_INV;
+  int i,j;
+ 
+  strcpy(f->sal,"");
+  for(i = 0; i < getalt_fig(f)/2; ++i){
+
+    for(j = 0; j < getanc_fig(f); ++j){
+      if(j == i || j == getanc_fig(f) - i -1)
+        strcat(f->sal, "*");
+      else
+        strcat(f->sal, " ");
+    }
+    strcat(f->sal, "\n");
+  }
+  return OK;
+}
+
+int dos_triangulos_5(figura*f){
+    if (!ES_VAL(f))  
+      return AP_INV;
+    
+    if (getalt_fig(f) < 2*getanc_fig(f) || getanc_fig(f) < 3) 
+       return DIM_INV;
+  int i,j;
+  
+  strcpy(f->sal, "");
+
+  
+  for (i = 0; i < (getalt_fig(f) / 2)-1; ++i) {    
+
+    for (j = 0; j < i + 1; ++j) 
+      strcat(f->sal, "*");
+
+    strcat(f->sal, "\n");
+  }
+  for(j=0; j< getalt_fig(f); ++j)
+    if(j< getanc_fig(f)/2 +1 ||j> getanc_fig(f)/2 ){
+      strcat(f->sal, "*");
+    }else{
+      strcat(f->sal, " ");
+    }
+  
+  strcat(f->sal, "\n");  
+  for (i = 1; i < (getalt_fig(f) / 2)+1; ++i) {
+    for (j = 0; j < getalt_fig(f) / 2 -i -1; ++j) 
+      strcat(f->sal, " ");
+    for (j = 0; j < 2*i + 1;  ++j) 
+      strcat(f->sal, " ");
+    for (j = 0; j < getalt_fig(f) / 2 -i; ++j) 
+      strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+  return OK;
+}
+
+int dos_triangulos_6(figura*f){
+    if (!ES_VAL(f))  
+      return AP_INV;
+    if (getalt_fig(f) < 3 || getanc_fig(f) < 3) 
+      return DIM_INV;
+  int i,j;
+  
+  strcpy(f->sal, "");
+  for (i = 0; i < (getalt_fig(f) / 2)-2; ++i) {    
+
+    for (j = 0; j < (getalt_fig(f) / 2) - 2*i ; ++j) 
+      strcat(f->sal, "*");
+
+    strcat(f->sal, "\n");
+  }
+  for(j=0; j < getalt_fig(f); ++j)
+    if(j == 0 ||j == getanc_fig(f)-1){
+      strcat(f->sal, "*");
+    }else{
+      strcat(f->sal, " ");
+    }
+  
+  strcat(f->sal, "\n");  
+  for (i = 1; i < (getalt_fig(f) / 2)-1; ++i) {
+    for (j = 0; j < getalt_fig(f)  -i -1; ++j) 
+      strcat(f->sal, " ");
+
+    for (j = 0; j < i +1; ++j) 
+      strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+  return OK;
+}
+
+int letra_v(figura*f){
+  if (!ES_VAL(f))  
+    return AP_INV;
+  if (getalt_fig(f) < 3 || getanc_fig(f) < 3) 
+    return DIM_INV;
+ 
+  int i,j;
+  strcpy(f->sal, "");
+
+ 
+  for (i = 0; i < getanc_fig(f) / 2 ; ++i) {
+    for (j = 0; j < i + 1; ++j)
+      strcat(f->sal, "*");
+    for (j = 0; j < getanc_fig(f) - 2*i ;  ++j)
+      strcat(f->sal, " ");
+    for (j = 0; j < i + 1; ++j)
+      strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+
+  for (i = getanc_fig(f) / 2; i < getalt_fig(f); ++i) {
+ 
+    for (j = 0; j < i - (getanc_fig(f) / 2 - 1); ++j) 
+      strcat(f->sal, " ");
+    for (j = 0; j < 2*(getanc_fig(f) - i); ++j) 
+      strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+  
+  return OK;
+}
+
+int letra_a(figura*f){
+  if (!ES_VAL(f))  
+    return AP_INV;
+  if (getalt_fig(f) < 3 || getanc_fig(f) < 3) 
+    return DIM_INV;
+ 
+  int i,j;
+  strcpy(f->sal, "");
+   
+  for(i = 0; i < getalt_fig(f)/3 + 1; ++i){
+    for(j = 0; j < getanc_fig(f)/2 - i -1; ++j)
+      strcat(f->sal, " ");
+    for(j = 0; j < 2*i +1; ++j)
+      strcat(f->sal, "*");
+    for(j = 0; j < getanc_fig(f)/2 - i -1; ++j)
+      strcat(f->sal, " ");
+    strcat(f->sal, "\n");
+  }
+  for(i = getalt_fig(f)/3 +1; i < 2*getalt_fig(f)/3; ++i){
+    for(j = 0; j < getanc_fig(f)/2-i +2; ++j){
+      strcat(f->sal, "*");
+    }
+    for(j = 0; j < 2*i -getanc_fig(f)/2 -1; ++j){
+      strcat(f->sal, " ");
+    }
+    for(j = 0; j < getanc_fig(f)/2-i +2; ++j){
+      strcat(f->sal, "*");
+    }
+    strcat(f->sal, "\n");
+  }
+  for (i = 2*getalt_fig(f)/3; i < getalt_fig(f) -1; ++i) {
+    for (j = 0; j < getanc_fig(f) -1; ++j) {
+      strcat(f->sal, "*");
+    }
+    strcat(f->sal, "\n");
+  }
+  for(j = 0; j < getanc_fig(f)-1; ++j){
+    if(j == 0 || j == getanc_fig(f) -2)
+      strcat(f->sal, "*");
+    else
+      strcat(f->sal, " ");
+  }
+  return OK;
+}
+
+int rect_iden(figura*f){
+  if (!ES_VAL(f))  
+    return AP_INV;
+  if (getalt_fig(f) < 3 || getanc_fig(f) < 3) 
+    return DIM_INV;
+  int i,j;
+  strcpy(f->sal, "");
+    for (int i = 0; i < getalt_fig(f)-1; i++) {
+        for (int j = 0; j < getanc_fig(f)-1; j++) {
+            if (j == 0 ) 
+              strcat(f->sal, "*");
+            else if (i == getanc_fig(f)-2)
+              strcat(f->sal, "*");
+            else if(j == getanc_fig(f)-i -2)
+              strcat(f->sal, "+");
+            else
+              strcat(f->sal, " ");
+        }
+        strcat(f->sal, "\n");
+    }
+  return OK;
+}
+/*
+señal de estacionamiento
+*/
+
+
+int casa(figura*f){
+
+  /*
+  hacer casa como en el ejemplo
+  ejemplo para alt=7 anc=11
+--*******
+-*-------*
+*---------*
+***********
+*---------*
+*---------*
+***********
+
+   */
+  if (!ES_VAL(f))  
+    return AP_INV;
+  if (getalt_fig(f) < 5 || getanc_fig(f) < getalt_fig(f)+4) 
+    return DIM_INV;
+  int i,j;
+  strcpy(f->sal, "");
+  for(i = 0; i < getalt_fig(f) /2; ++i){
+    for(j = 0; j < getanc_fig(f)/2 - i -3; ++j)
+      strcat(f->sal, " ");
+    for(j = 0; j < 2*i +7; ++j)
+      if(i == 0||j == 0 || j == 2*i +6)
+        strcat(f->sal, "*");
+      else
+        strcat(f->sal, " ");
+    strcat(f->sal, "\n");
+  }
+
+  for(i = 0; i < getalt_fig(f) /2 +1; ++i){
+    for(j = 0; j < getanc_fig(f); ++j)
+      if(i == 0 || j == 0 || j == getanc_fig(f)-1 || i == getalt_fig(f)/2)
+        strcat(f->sal, "*");
+      else
+        strcat(f->sal, " ");
+    
     strcat(f->sal, "\n");
   }
   return OK;

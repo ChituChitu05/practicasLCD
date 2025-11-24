@@ -56,5 +56,18 @@ int marco(figura*);
 int och_acos(figura*);
 int cua_rec(figura*);
 int rom_cua(figura*);
+int dos_casas(figura*);
+int dos_rombos_huecos(figura*);
+int letra_u(figura*);
+int letra_n(figura*);
+int letra_x(figura*);
+int dos_triangulos_5(figura*);
+int dos_triangulos_6(figura*);
+int letra_v(figura*);
+int letra_a(figura*);
+int rect_iden(figura*);
+int sen_est(figura*);
+int casa(figura*);
+int barco(figura*);
 
 #endif
