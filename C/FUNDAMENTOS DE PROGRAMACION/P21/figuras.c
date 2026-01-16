@@ -57,18 +57,6 @@ int etanc_fig(figura *f, int anc)
   return OK;
 }
 
-/*
-Pinta un triangulo de tamaño fijo por alto
-*
-**
-***
-Recibe:
-  figura en la que se pintará el tríangulo
-Regresa:
-  código de error en caso de reccibi apuntador
-  nulo OK en otro caso
-*/
-
 int fle_arr(figura* f){
   if (!ES_VAL(f))
     return AP_INV;
@@ -931,21 +919,8 @@ int rect_iden(figura*f){
 señal de estacionamiento
 */
 
-
 int casa(figura*f){
 
-  /*
-  hacer casa como en el ejemplo
-  ejemplo para alt=7 anc=11
---*******
--*-------*
-*---------*
-***********
-*---------*
-*---------*
-***********
-
-   */
   if (!ES_VAL(f))  
     return AP_INV;
   if (getalt_fig(f) < 5 || getanc_fig(f) < getalt_fig(f)+4) 
@@ -971,6 +946,438 @@ int casa(figura*f){
         strcat(f->sal, " ");
     
     strcat(f->sal, "\n");
+  }
+  return OK;
+}
+
+int barco(figura*f){
+  if (!ES_VAL(f))  
+    return AP_INV;
+  if (getalt_fig(f) < 5 || getanc_fig(f) < getalt_fig(f)+4) 
+    return DIM_INV;
+  int i,j;
+  strcpy(f->sal, "");
+  for(i = 0; i < getanc_fig(f)/2 -1; ++i){
+    for(j = 0; j < getanc_fig(f)/2 - i; ++j)
+      strcat(f->sal, " ");
+    for(j = 0; j < 2*i +2; ++j)
+      strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+  for(i = 0; i < getalt_fig(f)/3; ++i){
+    for(j = 0; j < getanc_fig(f)/2 ; ++j)
+      strcat(f->sal, " ");
+    strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+  for (i = 0; i < getanc_fig(f)/3-1; ++i) {
+    for(j=0; j<i; ++j)
+      strcat(f->sal, " ");
+    for(j = 0; j < getanc_fig(f)-2*i +1; ++j)
+      strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+  }
+  
+  return OK;
+}
+
+int ipn(figura*f){
+
+
+  if (!ES_VAL(f))  
+    return AP_INV;
+  if (getalt_fig(f) < 6 || getanc_fig(f) < getalt_fig(f)*2) 
+    return DIM_INV;
+  int i,j; 
+  strcpy(f->sal, "");         
+               
+
+for (i = 0; i < getalt_fig(f); i++) {
+    for (j = 0; j < getanc_fig(f) / 3; j++) {
+        int mid = getanc_fig(f) / 6;
+        if (i == 0 || i == getalt_fig(f)-1)
+            strcat(f->sal, "*");
+        else if (j == mid)
+            strcat(f->sal, "*");
+        else
+            strcat(f->sal, " ");
+    }
+    strcat(f->sal, " ");
+
+    for (j = 0; j < getanc_fig(f) / 3; j++) {
+        
+
+        if (j == 0)
+            strcat(f->sal, "*");
+        else if (i == 0 && j < getanc_fig(f) / 3 - 1)
+            strcat(f->sal, "*");
+        else if (i == getalt_fig(f) / 2 && j < getanc_fig(f) / 3 - 1)
+            strcat(f->sal, "*");
+        else if (i < getalt_fig(f) / 2 && j == getanc_fig(f) / 3 - 1)
+            strcat(f->sal, "*");
+        else
+            strcat(f->sal, " ");
+    }
+    strcat(f->sal, " ");
+
+
+    for (j = 0; j < getanc_fig(f) / 3; j++) {
+
+
+        if (j == 0)
+            strcat(f->sal, "*");             
+        else if (j == getanc_fig(f) / 3 - 1)
+            strcat(f->sal, "*");             
+        else if (j == i * (getanc_fig(f) / 3 - 1))
+            strcat(f->sal, "*");               
+        else
+            strcat(f->sal, " ");
+    }
+
+    strcat(f->sal, "\n");
+}
+
+return OK;
+}
+
+
+int may_que(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+  if (f->alt < 4  || f->anc < 4)
+    return DIM_INV;
+  int i,j;
+  strcpy(f->sal,"");
+
+    
+for (i = 0; i < getalt_fig(f)/2; ++i) {
+    for (j = 0; j < 2*i; ++j)
+        strcat(f->sal, " ");
+    for (j = 0; j < getanc_fig(f)/2 - i; ++j)
+        strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+}
+
+for (i = getalt_fig(f)/2 - 1; i >= 0; --i) {
+    for (j = 0; j < 2*i; ++j)
+        strcat(f->sal, " ");
+    for (j = 0; j < getanc_fig(f)/2 - i; ++j)
+        strcat(f->sal, "*");
+    strcat(f->sal, "\n");
+}
+  return OK;
+}
+
+int men_que(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+  if (f->alt < 4  || f->anc < 4)
+    return DIM_INV;
+  int i,j;
+  strcpy(f->sal,"");
+ 
+for (i = 0; i < getalt_fig(f)/2; ++i) {
+    for (j = 0; j < getanc_fig(f)/2 - 2*i +2; ++j)
+        strcat(f->sal, " ");
+    for (j = 0; j < getanc_fig(f)/2 - i; ++j)
+        strcat(f->sal, "*");
+
+    strcat(f->sal, "\n");
+}
+
+for (i = getalt_fig(f)/2 - 1; i >= 0; --i) {
+    for (j = 0; j < getanc_fig(f)/2 - 2*i +2; ++j)
+        strcat(f->sal, " ");
+    for (j = 0; j < getanc_fig(f)/2 - i; ++j)
+        strcat(f->sal, "*");
+
+
+    strcat(f->sal, "\n");
+}
+  return OK;
+}
+
+int sen_est(figura *f)
+{
+  if (!ES_VAL(f))
+    return AP_INV;
+  if (f->anc < 10 || f->alt < 13)
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+  for(i = 0; i < (f->alt*2)/3; ++i){
+
+    for(j = 0; j < f->anc; ++j){
+      if ((i == 0 && j > 0 && j < f->anc-1) ||
+          (i == (f->alt*2)/3 - 1 && j > 0 && j < f->anc-1) ||
+          (j == 0 && i > 0 && i < (f->alt*2)/3 - 1) ||
+          (j == f->anc - 1 && i > 0 && i < (f->alt*2)/3 - 1))
+      {
+        strcat(f->sal,"*");
+      }
+
+      else {
+        if (j == f->anc/5){
+          strcat(f->sal,"*");
+        }else if ((i == ((f->alt*2)/3)/6     && j >= f->anc/5 && j <= (f->anc*4)/5 - 1) ||
+                 (i == ((f->alt*2)/3)/2     && j >= f->anc/5 && j <= (f->anc*4)/5 - 1) ||
+                 (i == (((f->alt*2)/3)*5)/6 && j >= f->anc/5 && j <= (f->anc*4)/5 - 1))
+        {
+          strcat(f->sal,"*");
+        }else {
+          strcat(f->sal," ");
+        }
+      }
+    }
+
+    strcat(f->sal,"\n");
+  }
+
+  for(i = 0; i < f->alt - (f->alt*2)/3; ++i){
+    for(j = 0; j < f->anc; ++j){
+      if (j == f->anc/2)
+        strcat(f->sal,"*");
+      else
+        strcat(f->sal," ");
+    }
+    strcat(f->sal,"\n");
+  }
+
+  return OK;
+}
+
+int dif_0(figura* f){
+  if (!ES_VAL(f))
+    return AP_INV;
+  if (f->alt < 8 || f->anc < 16)
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+  strcpy(f->sal,"");
+  for(i=0;i<f->alt+1;i++){
+    if(i<f->alt/2){
+      for(j=0;j<f->alt/2;j++)
+        strcat(f->sal,"*");
+    }
+    else if(i<f->alt-f->alt/2+2){
+      for(j=0;j<f->alt/8;j++)
+        strcat(f->sal," ");
+      for(j=0;j<f->alt/4;j++)
+        strcat(f->sal,"*");
+      for(j=0;j<f->alt/8;j++)
+        strcat(f->sal," ");
+    }
+    else if(i<f->alt-f->alt/4+1){
+      for(j=0;j<f->alt/2;j++)
+        strcat(f->sal," ");
+    }
+    else{
+      for(j=0;j<f->alt/2;j++)
+        strcat(f->sal,"*");
+    }
+    
+    for(j=0;j<3;j++)
+      strcat(f->sal," ");
+    
+    if(i==0||i+1==f->alt+1){
+      strcat(f->sal," ");
+      for(j=0;j<f->alt;j++)
+      strcat(f->sal,"*");
+    }
+    else{
+      for(j=0;j<f->alt/3;j++)
+        strcat(f->sal,"*");
+      if(i>(f->alt*2)/3+1)
+        for(j=0;j<(f->alt*2)/3+1;j++)
+          strcat(f->sal," ");
+      else{
+        for(j=2;j<i;j++)
+          strcat(f->sal," ");
+      }
+      if(i==1)
+        strcat(f->sal,"*");
+      else if(i+1==f->alt-2){
+        strcat(f->sal,"*");
+        strcat(f->sal,"*");
+      }
+      else if(i>(f->alt*2)/3+1){
+        strcat(f->sal,"");
+      }
+      else{
+        strcat(f->sal,"*");
+        strcat(f->sal,"*");
+      }
+      for(j=i;j<f->alt-f->alt/3;j++)
+        strcat(f->sal," ");
+      for(j=0;j<f->alt/3;j++)
+        strcat(f->sal,"*");
+    }
+    strcat(f->sal,"\n");
+  }
+  return OK;
+}
+
+
+int sen_no_est(figura *f)
+{
+  if (!ES_VAL(f))
+    return AP_INV;
+  if (f->anc < 10 || f->alt < 13)
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+
+  for(i = 0; i < (f->alt*2)/3; ++i){
+    for(j = 0; j < f->anc; ++j){
+      if ((i == 0 && j > 0 && j < f->anc-1) ||
+          (i == (f->alt*2)/3 - 1 && j > 0 && j < f->anc-1) ||
+          (j == 0 && i > 0 && i < (f->alt*2)/3 - 1) ||
+          (j == f->anc - 1 && i > 0 && i < (f->alt*2)/3 - 1))
+      {
+        strcat(f->sal,"*");
+      }
+      else {
+        if (i > 0 && i < (f->alt*2)/3 - 1 && 
+            j > 0 && j < f->anc - 1) {
+
+          int calc_val = (i - 1) * (f->anc - 3) - ((f->anc - 2 - j) - 1) * ((f->alt*2)/3 - 3);
+          
+
+          if (calc_val >= -2 && calc_val <= 2) {
+            strcat(f->sal,"//");
+            continue; 
+          }
+        }
+        
+        if (j == f->anc/5){
+          strcat(f->sal,"*");
+        }
+
+        else if ((i == ((f->alt*2)/3)/6     && j >= f->anc/5 && j < (f->anc*3)/4) ||
+                 (i == ((f->alt*2)/3)/2     && j >= f->anc/5 && j < (f->anc*3)/4) ||
+                 (i == (((f->alt*2)/3)*5)/6 && j >= f->anc/5 && j < (f->anc*3)/4))
+        {
+          strcat(f->sal,"*");
+        }
+        else {
+          strcat(f->sal," ");
+        }
+      }
+    }
+    strcat(f->sal,"\n");
+  }
+
+  for(i = 0; i < f->alt - (f->alt*2)/3; ++i){
+    for(j = 0; j < f->anc; ++j){
+      if (j == f->anc/2)
+        strcat(f->sal,"*");
+      else
+        strcat(f->sal," ");
+    }
+    strcat(f->sal,"\n");
+  }
+
+  return OK;
+}
+
+int rectangulo(figura *f)
+{
+  if (!ES_VAL(f))
+    return AP_INV;
+  if (f->anc < 15 || f->alt < 5)
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+  
+  for(i = 0; i < f->alt; ++i){
+    for(j = 0; j < f->anc; ++j){
+      if (i == 0 || i == f->alt - 1){
+        strcat(f->sal,"*");
+      }
+      else {
+        if (j == 0 || j == f->anc - 1){
+          strcat(f->sal,"*");
+        }
+        else {
+          strcat(f->sal," ");
+        }
+      }
+    }
+    strcat(f->sal,"\n");
+  }
+
+  return OK;
+}
+int camion(figura *f) {
+  if (!ES_VAL(f))
+    return AP_INV;
+  if (f->alt < 6 || f->anc < 4*(f->alt/6))
+    return DIM_INV;
+
+  int i,j;
+  strcpy(f->sal,"");
+for(i=0;i<f->alt/6;i++){
+    for(j=0;j<f->anc-((f->anc-1)/4);j++)
+      strcat(f->sal,"*"); 
+    strcat(f->sal,"\n");
+  }
+  for(i=0;i<f->alt/3;i++){
+    strcat(f->sal,"*");
+    for(j=0;j<f->anc-((f->anc-2)/3);j++)
+      strcat(f->sal," ");
+    strcat(f->sal,"*");
+    if(i+1==f->alt/3){
+      for(j=0;j<((f->anc-2)/8);j++)
+        strcat(f->sal,"*");
+    }   
+    strcat(f->sal,"\n");
+  }
+  for(i=0;i<f->alt/6;i++){
+    strcat(f->sal,"*");
+    for(j=0;j<f->anc-((f->anc+1)/6);j++)
+      strcat(f->sal," ");
+    for(j=0;j<((f->anc-1)/8);j++)
+      strcat(f->sal,"*");  
+    strcat(f->sal,"\n");
+  }
+  for(i=0;i<f->alt/6;i++){
+    for(j=0;j<(f->anc)/17;j++)
+      strcat(f->sal,"*");
+    for(j=0;j<f->anc/17;j++)
+      strcat(f->sal," ");
+    for(j=0;j<(f->anc+1)/6;j++)
+      strcat(f->sal,"*");
+    for(j=0;j<(f->anc-2)/3;j++)
+      strcat(f->sal," ");
+    for(j=0;j<(f->anc+1)/6;j++)
+      strcat(f->sal,"*");
+    for(j=0;j<(f->anc+1)/6;j++)
+      strcat(f->sal," ");
+    strcat(f->sal,"*");
+    strcat(f->sal,"\n");
+  }
+  for(i=0;i<f->alt/6;i++){
+    for(j=0;j<(f->anc+1)/8;j++)
+      strcat(f->sal,"*");
+    for(j=0;j<(f->anc)/17;j++)
+      strcat(f->sal," ");
+    strcat(f->sal,"O");
+    for(j=0;j<(f->anc)/17;j++)
+      strcat(f->sal," ");
+    for(j=0;j<(f->anc-2)/3;j++)
+      strcat(f->sal,"*");
+    for(j=0;j<(f->anc)/17;j++)
+      strcat(f->sal," ");
+    strcat(f->sal,"O");
+    for(j=0;j<(f->anc)/17;j++)
+      strcat(f->sal," ");
+    for(j=0;j<(f->anc-1)/4;j++)
+      strcat(f->sal,"*");
+    strcat(f->sal,"\n");
   }
   return OK;
 }

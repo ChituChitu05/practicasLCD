@@ -1,0 +1,135 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Trebuchet MS", sans-serif;
+    background: linear-gradient(135deg, #0d0221, #1a0533 40%, #320a63);
+    color: #f2f2f2;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 10px;
+
+    transition: background 0.6s ease, color 0.6s ease;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+label {
+    font-size: 1.2rem;
+}
+
+select {
+    margin: 12px 0 25px;
+    padding: 8px 14px;
+    font-size: 1rem;
+    background: #1d0733;
+    color: #f2d8ff;
+    border: 2px solid #b548ff;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+select:hover {
+    background: #2b0a4d;
+    border-color: #ff66ff;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 300px;
+    padding: 20px;
+    background: rgba(30, 5, 55, 0.35);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 0, 255, 0.3);
+
+    transition: opacity 0.4s ease;
+}
+
+#controls > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input {
+    padding: 6px 10px;
+    width: 140px;
+    background: #110322;
+    color: #ffd6ff;
+    border: 1px solid #c53bff;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #ff66ff;
+    box-shadow: 0 0 8px #ff00ff;
+}
+
+button {
+    padding: 10px 16px;
+    margin-top: 10px;
+    background: #ff00ae;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background: #ff33cc;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+#result {
+    margin-top: 28px;
+    padding: 20px;
+    width: 90%;
+    max-width: 700px;
+    min-height: 120px;
+
+    background: rgba(20, 5, 45, 0.55);
+    border: 1px solid rgba(255, 0, 255, 0.25);
+    border-radius: 12px;
+    color: #eecaff;
+    backdrop-filter: blur(5px);
+
+    white-space: pre-wrap;
+    text-align: center;
+
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#result.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#result.hide {
+    opacity: 0;
+    transform: scale(0.97);
+}

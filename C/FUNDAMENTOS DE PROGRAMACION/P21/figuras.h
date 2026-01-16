@@ -67,7 +67,13 @@ int letra_v(figura*);
 int letra_a(figura*);
 int rect_iden(figura*);
 int sen_est(figura*);
+int camion(figura*);
 int casa(figura*);
 int barco(figura*);
-
+int ipn(figura*);
+int may_que(figura*);
+int men_que(figura*); 
+int dif_0(figura*);
+int sen_no_est(figura*);
+int rectangulo(figura*);
 #endif
