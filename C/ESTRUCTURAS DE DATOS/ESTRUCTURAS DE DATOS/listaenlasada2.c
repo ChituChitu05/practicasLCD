@@ -1,70 +1,99 @@
 /*
-Listas enlasadas:
-Lista enlazada con head, donde el primer nodo siempre es el de referencia(tambien llamado cabeza, head).
-Se crean nodos que se agregan esntre el head y el pimer nodo creado despues del head.
-La informacion de TODOS los nodos aqui son 2 elementos, el dato a guardar y la direccion del siguiente elemento.
+Lista enlazada simple.
+
+Una lista enlazada está formada por nodos conectados entre sí mediante punteros.
+Cada nodo tiene:
+- un dato
+- un puntero al siguiente nodo.
+
+Ventajas:
+- se pueden insertar o eliminar nodos sin mover otros en memoria.
+
+En esta versión NO existe nodo cabeza fijo.
+El puntero "ptrReferencia" solo guarda la dirección del primer nodo de la lista
+(el nodo más reciente que se insertó al inicio).
 */
 
-#include <stdio.h>
+#include<stdio.h>
 #include <stdlib.h>
 
-struct Nodo{
-    int dato;
-    struct Nodo *ptrSig;
+struct nodo
+{
+    int dato;              // valor almacenado en el nodo
+    struct nodo *ptrsig;   // dirección del siguiente nodo
 };
 
 int main(){
+
     /*
-    ptrRef sera el ocupado por el nod HEAD.
-    ptrNuevo se utilizara para crear nuevos nodos que despues se enlazaran con los nuevos nodos creados y el HEAD para poder reutilizarse.
-    ptrBasura se utilizara para poder guardar la direccion del nodo a ser eliminado sin perder informacion que conteniía y poder reenlazar los nodos entre los que se encontraba.
-    ptrRec se utilizara para recorrer toda la lista desde el nodo de referencia hasta el ultimo nodo culla direccion de "siguiente nodo" sea NULL.
+    ptrReferencia -> apunta al primer nodo de la lista.
 
+    ptrNuevo -> se usa para crear nuevos nodos con malloc.
+
+    ptrRecorrer -> se usa para recorrer la lista nodo por nodo.
+
+    ptrBasura -> guarda temporalmente un nodo que se eliminará
+    para no perder su dirección antes de liberar memoria.
     */
-    struct Nodo *ptrRef,*ptrNuevo, *ptrBasura,*ptrRec;
+    struct nodo *ptrReferencia ,*ptrNuevo, *ptrRecorrer, *ptrBasura;
+
+    // La lista inicia vacía (no apunta a ningún nodo)
+    ptrReferencia = NULL;
+    
+    // ---------- PRIMER NODO ----------
+    ptrNuevo = (struct nodo*)malloc(sizeof(struct nodo));
+    ptrNuevo->dato = 5;
+    ptrNuevo->ptrsig = NULL;   // no hay nodo después
+
+    // la referencia ahora apunta al primer nodo
+    ptrReferencia = ptrNuevo;
+    
+    // ---------- SEGUNDO NODO ----------
+    ptrNuevo = (struct nodo*)malloc(sizeof(struct nodo));
+    ptrNuevo->dato = 10;
+
+    // el nuevo nodo apunta al nodo que antes era el primero
+    ptrNuevo->ptrsig = ptrReferencia;
+
+    // la referencia ahora apunta al nuevo nodo
+    ptrReferencia = ptrNuevo;
+    
+    // ---------- TERCER NODO ----------
+    ptrNuevo = (struct nodo*)malloc(sizeof(struct nodo));
+    ptrNuevo->dato = 15;
+
+    ptrNuevo->ptrsig = ptrReferencia;
+    ptrReferencia = ptrNuevo;
     
 
+    // ---------- RECORRER LA LISTA ----------
+    ptrRecorrer = ptrReferencia;   // empezar desde el primer nodo
 
-    //el primer nodo en crearse manualmente sera el de Regerencia (head) que se le asignara despues a su puntero correspondiente.    
-    ptrNuevo = (struct Nodo*) malloc(sizeof(struct Nodo)); //aparta memoria en tiempo de ejecucion para un nuevo nodo del tamaño que estos requieran.
-    ptrNuevo -> dato = -1000; //el dato del nodo de referencia se asigna a -1000 para poder identificarlo facilmente. 
-    ptrNuevo -> ptrSig = NULL; //el nodo de referencia no apunta a ningun nodo por lo que su puntero de siguiente nodo se asigna a NULL.
+    while(ptrRecorrer != NULL){
+        printf("%d ", ptrRecorrer->dato);
+        ptrRecorrer = ptrRecorrer->ptrsig;
+    }
 
-    ptrRef = ptrNuevo;  //el nodo de referrencia se asigna al puntero de referencia para poder acceder a el posteriormente y no perder su direccion.
+    // ---------- ELIMINAR PRIMER NODO ----------
+    ptrBasura = ptrReferencia;              // guardar nodo a eliminar
+    ptrReferencia = ptrBasura->ptrsig;      // la referencia pasa al siguiente nodo
 
-    //primer elemento real añadido a la lista
-    ptrNuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
-    ptrNuevo -> dato = 5; //de momento se añadira el 5 a la lista, se puede cambiar por un scanf para ñadirlo manualmente.
-    ptrNuevo -> ptrSig = NULL; //el primer elemento añadido a la lista siempre terminara siendo el ultimo en la lista.
+    printf("\nEl dato eliminado fue %d", ptrBasura->dato);
 
-    ptrRef -> ptrSig = ptrNuevo; //enlazamos el nodo referencia a la direccion previamente reservada con malloc para poder reutilizar ptrNuevo.
-    
-    //segndo nodo
-    ptrNuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
-    ptrNuevo -> dato = 10;
-
-    ptrNuevo -> ptrSig = ptrRef -> ptrSig;
-    ptrRef -> ptrSig = ptrNuevo;
-
-    //tercer nodo
-    ptrNuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
-    ptrNuevo -> dato = 15;
-
-    ptrNuevo -> ptrSig = ptrRef -> ptrSig;
-    ptrRef -> ptrSig = ptrNuevo;
+    free(ptrBasura);   // liberar memoria del nodo eliminado
 
 
+    /*
+    Diferencia con una lista con nodo cabeza:
 
-    //recorrer
-    // deberia de imprimir 15,10,5
+    Aquí:
+    - ptrReferencia siempre apunta al primer nodo real de la lista.
+    - cada nuevo nodo se inserta al inicio.
 
-    ptrRec = ptrRef;//DEBE DE ASIGNARSE A UN PUNTERO NUEVO PARO ANO ALTERAR LA POSICION DEL NODO REFERENCIA Y PERDER EL INICIO DE LA CADENA
-    while (ptrRec->ptrSig != NULL){
-        printf("El dato almacenado es: %d en la direccion %p", ptrRec ->dato,ptrRec);
-        ptrRec = ptrRec -> ptrSig;
-    }   
-    
-
+    Con nodo cabeza:
+    - existe un nodo fijo que nunca se elimina.
+    - los nodos nuevos se insertan después de ese nodo.
+    */
 
     return 0;
 }
