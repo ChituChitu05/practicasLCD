@@ -1,11 +1,15 @@
-# include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
+/*
+Cola:
+Una cola es una estructura lineal donde el Pimer elemewnto en Entrar es el Primero en Salir(First In - First Out / FIFO).
+Se requieren 2 punteros que recorreran el arreglo desde el principio hasta el final.
+El primer apunador se encargara de apuntar a la siguiente posicion disponible despues de introducir un dato.
+El segundo apuntador se devolvera el dato actual y despues se movera a al siguiente posicion.
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 # define TAM 100
-
-
-//ptrm de ptr meter, ptrs de ptr sacar
 struct Cola{
     int arreglo[TAM];
     int *ptrm, *ptrs;
@@ -72,8 +76,8 @@ int menu (){
 int main(){
   struct Cola cola, *miptrC;
   int miDato;
+  // Inicializar datos:
   miptrC = &cola;
-
   miptrC->ptrm = miptrC->arreglo;
   miptrC->ptrs = miptrC->arreglo;
 
