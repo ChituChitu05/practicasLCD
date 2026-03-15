@@ -41,7 +41,7 @@ int main(){
     ptrRef = ptrNuevo;  
 
 
-    // ---------- PRIMER NODO REAL ----------
+    // ---------- PRIMER NODO  ----------
     ptrNuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
     ptrNuevo->dato = 5;
     ptrNuevo->ptrSig = NULL;   // será el último nodo por ahora
