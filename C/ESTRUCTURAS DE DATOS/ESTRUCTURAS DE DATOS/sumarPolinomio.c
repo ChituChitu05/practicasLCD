@@ -1,0 +1,1 @@
+//hacer2 listas, 1 para exponent y otra para base
