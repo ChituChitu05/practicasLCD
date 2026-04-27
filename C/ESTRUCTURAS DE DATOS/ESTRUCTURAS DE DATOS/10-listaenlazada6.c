@@ -1,4 +1,5 @@
 //con nodo de cabecera
+//terminar
 #include <stdio.h>
 #include <stdlib.h>
 

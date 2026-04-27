@@ -1,3 +1,4 @@
+//lista enlazada sin cabecera
 #include <stdio.h>
 #include <stdlib.h>
 

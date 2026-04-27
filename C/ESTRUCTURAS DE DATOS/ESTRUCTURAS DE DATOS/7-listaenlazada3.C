@@ -1,4 +1,4 @@
-//lista enlazada
+//lista enlazada sin cabecera, se mete al inicio y se saca del inicio
 #include <stdio.h>
 #include <stdlib.h>
 struct Nodo{

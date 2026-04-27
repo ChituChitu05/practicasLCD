@@ -1,4 +1,4 @@
-//Lista sin cabecera y ass-endente (numerico)
+//Lista con cabecera y ass-endente (alfanumerico)
 #include <stdio.h>
 #include <stdlib.h>
 struct Nodo{
@@ -6,4 +6,3 @@ struct Nodo{
     struct Nodo *ptrSig;
     struct Nodo *ptrAnt;
 };
-

@@ -1,4 +1,5 @@
 //con nodo de cabecera
+//terminar
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -48,7 +49,7 @@ int imprimirTodoRev(struct Nodo *ptrRef){
     while(ptrRec -> ptrSig != NULL){
         ptrRec = ptrRec -> ptrSig;
     }
-    printf("\nImprimir Rev");
+    printf("\nImprimir Rec");
     while(ptrRec -> ptrAnt != NULL){
         printf("\nDato: %d",ptrRec ->dato);
         ptrRec = ptrRec -> ptrAnt;
