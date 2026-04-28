@@ -60,8 +60,24 @@ int imprimir(struct Nodo *ptrRef)
     return 0;
 }
 
-int sacarDato(struct Nodo* ptrRef, int* dato){
-    struct Nodo* ptrBasura; 
+int sacarDato(struct Nodo *ptrRef, int *dato){
+    struct Nodo *ptrBasura,*ptrAtras;
+    ptrAtras = ptrBasura;
+    while(ptrBasura -> key != *dato || ptrBasura!=NULL){
+        ptrAtras = ptrBasura;
+        ptrBasura = ptrBasura->ptrSig;
+    }
+    if(ptrBasura == NULL) return 1;
+    if(ptrBasura -> ptrSig == NULL){
+        ptrAtras -> ptrSig = NULL;
+        *dato = ptrBasura -> key;
+        free(ptrBasura); 
+    }else{
+        ptrBasura -> ptrSig -> ptrAnt = ptrAtras;
+        ptrAtras -> ptrSig = ptrBasura -> ptrSig;
+        *dato = ptrBasura -> key;
+        free(ptrBasura);
+    } 
     return 0;
 }
 int menu()
@@ -88,7 +104,12 @@ int main()
         meterNodo(ptrRef,dato);
         break;
     case 2:
-        /* code */
+        scanf("%d", &dato);
+        if(sacarDato(ptrRef,&dato)!=0){
+            printf("Dato no encontrado");
+        }else{
+            printf("Dato sacado: %d",dato);
+        }
         break;
     case 3:
         imprimir(ptrRef);
