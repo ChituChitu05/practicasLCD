@@ -60,24 +60,31 @@ int imprimir(struct Nodo *ptrRef)
     return 0;
 }
 
-int sacarDato(struct Nodo *ptrRef, int *dato){
-    struct Nodo *ptrBasura,*ptrAtras;
+int sacarDato(struct Nodo *ptrRef, int *dato)
+{
+    struct Nodo *ptrBasura, *ptrAtras;
+    ptrBasura = ptrRef->ptrSig;
     ptrAtras = ptrBasura;
-    while(ptrBasura -> key != *dato || ptrBasura!=NULL){
+    while (ptrBasura->key != *dato || ptrBasura != NULL)
+    {
         ptrAtras = ptrBasura;
         ptrBasura = ptrBasura->ptrSig;
     }
-    if(ptrBasura == NULL) return 1;
-    if(ptrBasura -> ptrSig == NULL){
-        ptrAtras -> ptrSig = NULL;
-        *dato = ptrBasura -> key;
-        free(ptrBasura); 
-    }else{
-        ptrBasura -> ptrSig -> ptrAnt = ptrAtras;
-        ptrAtras -> ptrSig = ptrBasura -> ptrSig;
-        *dato = ptrBasura -> key;
+    if (ptrBasura == NULL)
+        return 1;
+    if (ptrBasura->ptrSig == NULL)
+    {
+        ptrAtras->ptrSig = NULL;
+        *dato = ptrBasura->key;
         free(ptrBasura);
-    } 
+    }
+    else
+    {
+        ptrBasura->ptrSig->ptrAnt = ptrAtras;
+        ptrAtras->ptrSig = ptrBasura->ptrSig;
+        *dato = ptrBasura->key;
+        free(ptrBasura);
+    }
     return 0;
 }
 int menu()
@@ -97,30 +104,35 @@ int main()
 {
     struct Nodo *ptrRef = createNodo(-1);
     int dato;
+    for (;;)
+    {
+        switch (menu())
+        {
+        case 1:
+            printf("Ingrese dato:");
+            scanf("%d", &dato);
+            meterNodo(ptrRef, dato);
+            break;
+        case 2:
+            scanf("%d", &dato);
+            if (sacarDato(ptrRef, &dato) != 0){
+                printf("Dato no encontrado");
+            }else{
+                printf("Dato sacado: %d", dato);
+            }
+            break;
+        case 3:
+            imprimir(ptrRef);
+            break;
+        case 4:
+            exit(1);
+            break;
 
-    switch (menu()){
-    case 1:
-        scanf("%d",&dato);
-        meterNodo(ptrRef,dato);
-        break;
-    case 2:
-        scanf("%d", &dato);
-        if(sacarDato(ptrRef,&dato)!=0){
-            printf("Dato no encontrado");
-        }else{
-            printf("Dato sacado: %d",dato);
+        default:
+            printf("Opcion incorrecta");
+            exit(1);
+            break;
         }
-        break;
-    case 3:
-        imprimir(ptrRef);
-        break;
-    case 4:
-        exit(1);
-        break;
-
-    default:
-        printf("Opcion incorrecta");
-        break;
     }
     return 0;
 }
