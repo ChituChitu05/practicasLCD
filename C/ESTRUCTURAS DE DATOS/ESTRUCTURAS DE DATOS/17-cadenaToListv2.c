@@ -8,3 +8,7 @@ struct Nodo{
     struct Nodo *ptrSig,*ptrAnt;
 };
 
+struct Nodo *createNodo(){
+    
+}
+
