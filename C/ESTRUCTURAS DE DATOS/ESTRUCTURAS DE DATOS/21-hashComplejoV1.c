@@ -1,4 +1,5 @@
 // lista puntero simple (con cabecera) numerico
+//terminar
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

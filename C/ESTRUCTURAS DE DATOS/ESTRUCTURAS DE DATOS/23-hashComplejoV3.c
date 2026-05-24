@@ -1,4 +1,5 @@
 // lista puntero doble (sin cabecera) alfanumerico
+//terminar
 #include <stdio.h>
 #include <stdlib.h>
 

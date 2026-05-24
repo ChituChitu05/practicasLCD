@@ -1,5 +1,4 @@
 //con nodo de cabecera
-//terminar
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -31,6 +30,15 @@ int meterNodo(struct Nodo *ptrRef, int *dato){
     }
     return 0;
 }
+int sacarDato(struct Nodo *ptrRef,int *dato){
+    struct Nodo *ptrBasura;
+    ptrBasura = ptrRef -> ptrSig;
+    ptrRef -> ptrSig = ptrBasura -> ptrSig;
+    (ptrBasura -> ptrSig) -> ptrAnt = ptrRef;
+    *dato = ptrBasura -> dato;
+    free(ptrBasura); 
+    return 0;
+}
 
 
 int imprimirTodo(struct Nodo *ptrRef){
@@ -56,16 +64,46 @@ int imprimirTodoRev(struct Nodo *ptrRef){
     }
     return 0;
 }
+
+
+int menu(){
+    int opc;
+    printf("\nMenu");
+    printf("\n1.Meter");
+    printf("\n2.Sacar");
+    printf("\n3.Imprimir todo");
+    printf("\n4.Salir");
+    printf("\nIngresa opcion:");
+    scanf("%d",&opc);
+    return opc;
+}
 int main(){
-    struct Nodo *ptrRef;
+    struct Nodo *ptrRef1;
     int dato;
-    dato = -10000;
-    ptrRef = crearNodo(&dato);
-    for(int i = 5; i <= 25; i+=5){
-        dato = i;
-        meterNodo(ptrRef,&dato);
+    ptrRef1 = crearNodo(-9999);
+
+    for(;;){
+        switch (menu()){
+        case 1:
+            printf("\nIngrese un entero:");
+            scanf("%d",&dato);
+            meterNodo(ptrRef1,dato);
+            break;
+        case 2:
+            if(sacarDato(ptrRef1,&dato) != 0)
+                printf("Dato eliminado: %d",dato);
+            break;
+        case 3:
+            imprimirTodo(ptrRef1);
+            break;
+        case 4:
+            exit(1);
+            break;    
+        default:
+            printf("\nIngrese opcion correcta");
+            break;
+        }
     }
-    imprimirTodo(ptrRef);
-    imprimirTodoRev(ptrRef);
+
     return 0;
 }
