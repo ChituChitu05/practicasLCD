@@ -1,5 +1,4 @@
 //Lista con cabecera y ass-endente (alfanumerico)puntero doble
-//adaptar a alfanumerico
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
