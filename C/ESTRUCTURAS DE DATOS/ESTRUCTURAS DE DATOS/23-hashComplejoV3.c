@@ -1,4 +1,4 @@
-// lista puntero doble (sin cabecera)
+// lista puntero doble (sin cabecera) alfanumerico
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,7 +10,7 @@ struct Dato{
 struct Nodo{
     struct Dato dato;
     int clave;
-    struct NOodo *ptrSig,*ptrAnt; 
+    struct Nodo *ptrSig,*ptrAnt; 
 };
 
 struct Nodo* crearNodo(struct Dato* dato){

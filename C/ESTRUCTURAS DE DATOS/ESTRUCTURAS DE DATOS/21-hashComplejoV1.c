@@ -1,4 +1,4 @@
-// lista puntero simple (con cabecera)
+// lista puntero simple (con cabecera) numerico
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
