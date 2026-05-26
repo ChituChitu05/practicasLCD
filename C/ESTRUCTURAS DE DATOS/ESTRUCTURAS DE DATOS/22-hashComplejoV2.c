@@ -1,5 +1,5 @@
 // lista puntero doble (sin cabecera) numerico
-//terminar
+//terminar 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -58,6 +58,7 @@ int meterNodo(struct Nodo **ptrRef, struct Dato *ptrD,int clave){
     if(ptrAv == NULL){
         nodoNuevo -> ptrAnt = ptrAtr;
         nodoNuevo -> ptrSig = NULL;
+        ptrAtr -> ptrSig = nodoNuevo;
     }else{
         nodoNuevo -> ptrSig = ptrAv;
         nodoNuevo -> ptrAnt = ptrAtr;
@@ -67,14 +68,94 @@ int meterNodo(struct Nodo **ptrRef, struct Dato *ptrD,int clave){
 
     return 0;
 }
+int sacarDato(struct Nodo **ptrRef, int clave, struct Dato *dato) {
+    struct Nodo *ptrAv,*ptrAtr; 
+    ptrAv = *ptrRef;
+    if (ptrAv == NULL) return 1; // Lista vacía
+    while (ptrAv != NULL && ptrAv->clave != clave) {
+        ptrAtr = ptrAv;
+        ptrAv = ptrAv->ptrSig;
+    }
+    if (ptrAv == NULL) return 2; // La clave no existe
+
+    if (ptrAv->ptrSig != NULL) { 
+        if (ptrAtr == *ptrRef) {
+            ptrAv->ptrSig->ptrAnt = NULL;
+        } else {
+            ptrAv->ptrSig->ptrAnt = ptrAtr;
+        }
+    }
+    *dato = ptrAv->dato;
+    free(ptrAv);
+    return 0;
+}
+
+int imprimir(struct Nodo **ptrRef2){
+    struct Nodo *ptrRec;
+    ptrRec = *ptrRef2;
+    if(ptrRec == NULL) return 1;
+    while (ptrRec != NULL){
+        printf("\n Nombre: %s y edad %d en la clave: %d.", ptrRec -> dato.nombre, ptrRec -> dato.edad, ptrRec -> clave);
+        ptrRec = ptrRec ->ptrSig;
+    }
+    return 0;
+}
+int menu(){
+    int opc;
+    printf("\nMenu");
+    printf("\n1.Meter");
+    printf("\n2.Sacar");
+    printf("\n3.Imprimir todo");
+    printf("\n4.Salir");
+    printf("\nIngresa opcion:");
+    scanf("%d", &opc);
+    return opc;
+}
 
 int main(){
-    struct Nodo *ptrRef1,**ptrRef2;
-    ptrRef1 = NULL;
-    ptrRef2 = &ptrRef1;
-    
-    
+    struct Nodo *ptrRef,**ptrRef2;
+    ptrRef = NULL;
+    ptrRef2 = &ptrRef;
+    struct Dato dato;
+    int clave;
+    int sacar;
+    for (;;)
+    {
+        switch (menu())
+        {
+        case 1:
+            printf("\nIngrese clave:");
+            scanf("%d", &clave);
+            printf("\nIngrese nombre:");
+            gets(dato.nombre);
+            printf("\nIngrese edad:");
+            scanf("%d",&dato.edad);
+            fflush(stdin);
+            meterNodo(ptrRef2, &dato,clave);
+            break;
+        case 2:
+            scanf("%d", &clave);
+            sacar = sacarDato(ptrRef2, clave, &dato);
+            if ( sacar == 1){
+                printf("Lista vacia");
+            }else if(sacar == 2){
+                printf("Clave no existe");
+            }else if(sacar  == 0){
+                printf("\n Nombre: %s y edad %d en la clave: %d.",dato.nombre, dato.edad, clave);
+            }
+            break;
+        case 3:
+            imprimir(ptrRef2);
+            break;
+        case 4:
+            exit(1);
+            break;
 
-
+        default:
+            printf("Opcion incorrecta");
+            exit(1);
+            break;
+        }
+    }
     return 0;
 }

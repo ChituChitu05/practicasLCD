@@ -1,5 +1,5 @@
 //cola circular con una lista enlazada  
-//terminar
+//terminar321
 #include <stdio.h>
 #include <stdlib.h>
 

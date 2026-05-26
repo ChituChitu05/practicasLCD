@@ -1,5 +1,5 @@
 //pasar cadena a lista sin cabecera
-//hacerlo con puntero doble
+//hacerlo con puntero doble 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
