@@ -1,5 +1,4 @@
 //con nodo de cabecera
-//terminar
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -31,11 +30,20 @@ int meterNodo(struct Nodo *ptrRef, int *dato){
     }
     return 0;
 }
+int sacarNodo(struct Nodo **ptrRef,int *dato){
+    struct Nodo *ptrBasura;
+    ptrBasura = *ptrRef;
+    if(ptrBasura == NULL) return 1;
+    (*ptrRef) -> ptrAnt = ptrBasura -> ptrAnt;
+    (*ptrRef) = ptrBasura -> ptrSig;
+    *dato =  ptrBasura -> dato;
+    free(ptrBasura);
+    return 0;
+}
 
-
-int imprimirTodo(struct Nodo *ptrRef){
+int imprimirTodo(struct Nodo **ptrRef){
     struct Nodo *ptrRec;
-    ptrRec = ptrRef -> ptrSig;
+    ptrRec = (*ptrRef) -> ptrSig;
     printf("\nImprimir Normal");
     while(ptrRec != NULL){
         printf("\nDato: %d",ptrRec ->dato);
@@ -56,16 +64,50 @@ int imprimirTodoRev(struct Nodo *ptrRef){
     }
     return 0;
 }
+
+int menu(){
+    int opc;
+    printf("\nMenu");
+    printf("\n1.Meter");
+    printf("\n2.Sacar");
+    printf("\n3.Imprimir todo.");
+    printf("\n4.Imprimir rev.");
+    printf("\n5.Salir");
+    printf("\nIngresa opcion:");
+    scanf("%d",&opc);
+    return opc;
+}
 int main(){
-    struct Nodo *ptrRef;
+    struct Nodo *ptrRef1,**ptrRef2;
     int dato;
-    dato = -10000;
-    ptrRef = crearNodo(&dato);
-    for(int i = 5; i <= 25; i+=5){
-        dato = i;
-        meterNodo(ptrRef,&dato);
+    ptrRef1 = NULL;
+    ptrRef2 = &ptrRef1;
+
+    for(;;){
+        switch (menu()){
+        case 1:
+            printf("\nIngrese un entero:");
+            scanf("%d",&dato);
+            meterNodo(ptrRef2,dato);
+            break;
+        case 2:
+            if(sacarDato(ptrRef2,&dato) != 0)
+                printf("Dato eliminado: %d",dato);
+            break;
+        case 3:
+            imprimirTodo(ptrRef2);
+            break;
+        case 4:
+            imprimirTodoRev(ptrRef2);
+            break;
+        case 5:
+            exit(1);
+            break;    
+        default:
+            printf("\nIngrese opcion correcta");
+            break;
+        }
     }
-    imprimirTodo(ptrRef);
-    imprimirTodoRev(ptrRef);
+
     return 0;
 }

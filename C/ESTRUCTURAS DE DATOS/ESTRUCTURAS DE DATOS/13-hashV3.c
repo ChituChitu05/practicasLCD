@@ -1,9 +1,9 @@
 //Lista con cabecera y ass-endente (alfanumerico)
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <string.h>
 struct Nodo{
-    int key;
+    char key[30];
     struct Nodo *ptrSig;
     struct Nodo *ptrAnt;
 };
@@ -13,11 +13,11 @@ struct Nodo *crearNodo(int dato){
     nodoNuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
     nodoNuevo -> ptrSig = NULL;
     nodoNuevo -> ptrAnt = NULL;
-    nodoNuevo -> key = dato;
+    strcpy(nodoNuevo -> key, dato);
     return nodoNuevo;
 }
 
-int meterDato(struct Nodo *ptrRef,int dato){
+int meterDato(struct Nodo *ptrRef,char * dato){
     struct Nodo *newNodo,*ptrAvanzada,*ptrAtras;
     newNodo = crearNodo(dato);
     //hash vacia
@@ -27,7 +27,7 @@ int meterDato(struct Nodo *ptrRef,int dato){
         return 0;
     }
     //dato menor al primero
-    if((ptrRef -> ptrSig) -> key > dato){
+    if(strcmp((ptrRef -> ptrSig) -> key,dato) > 0){
         newNodo -> ptrAnt = ptrRef;
         newNodo -> ptrSig = ptrRef -> ptrSig;
         (ptrRef -> ptrSig) -> ptrAnt = newNodo;
@@ -39,7 +39,7 @@ int meterDato(struct Nodo *ptrRef,int dato){
     ptrAtras = ptrRef;
 
     while(ptrAvanzada != NULL){
-        if(ptrAvanzada -> key == dato){
+        if(strcmp((ptrRef -> ptrSig) -> key,dato) == 0){
             free(newNodo);
             return 1;
         }
@@ -63,14 +63,14 @@ int meterDato(struct Nodo *ptrRef,int dato){
     return 0;
 }
 
-int sacarDato(struct Nodo *ptrRef, int dato){
+int sacarDato(struct Nodo *ptrRef, char * dato){
     struct Nodo *ptrRec,*ptrAtras;
     if(ptrRef -> ptrSig == NULL){
         printf("\n Lista vacia.");
         return 1;
     }
     ptrRec = ptrRef -> ptrSig;
-    while(ptrRec != NULL && ptrRec -> key != dato) ptrRec = ptrRec ->ptrSig;
+    while(ptrRec != NULL && strcmp((ptrRef -> ptrSig) -> key,dato) != 0) ptrRec = ptrRec ->ptrSig;
     if(ptrRec == NULL){ 
         printf("\nDato no encontrado");
         return 1;
@@ -87,7 +87,7 @@ int imprimirTodo(struct Nodo *ptrRef){
     ptrRec = ptrRef -> ptrSig;
     if(ptrRec == NULL) printf("\nLista Vacia.");
     while(ptrRec != NULL){
-        printf("\n %d", ptrRec -> key);
+        printf("\n %s", ptrRec -> key);
         ptrRec = ptrRec -> ptrSig;
     }
     return 0;
@@ -104,15 +104,15 @@ int menu(){
     return opc;
 }
 int main(){
-    struct Nodo *ptrRef = crearNodo(-1);  // Crear nodo cabecera
-    int dato;
+    struct Nodo *ptrRef = crearNodo(-10000);  // Crear nodo cabecera
+    char dato[30];
     int resultado;
     
     for(;;){
         switch(menu()){
             case 1:  // Meter dato
                 printf("Ingrese dato: ");
-                scanf("%d", &dato);
+                fgets(dato, sizeof(dato),stdin);
                 resultado = meterDato(ptrRef, dato);
                 if(resultado == 0){
                     printf("\nDato %d insertado correctamente", dato);
@@ -123,7 +123,7 @@ int main(){
                 
             case 2:  // Sacar dato
                 printf("Ingrese dato a eliminar: ");
-                scanf("%d", &dato);
+                fgets(dato, sizeof(dato),stdin);
                 resultado = sacarDato(ptrRef, dato);
                 if(resultado == 0){
                     printf("\nDato %d eliminado correctamente", dato);
