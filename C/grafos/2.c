@@ -1,54 +1,168 @@
 #include <stdio.h>
 #include <stdlib.h>
-struct Nodo{
-    int dato;
-    struct Nodo *ptrIzq;
-    struct Nodo *ptrDer;
-};
-struct Nodo *createNodo(int dato){
-    struct Nodo *newNodo;
-    newNodo = (struct Nodo *) malloc(sizeof(struct Nodo));
-    newNodo -> dato = dato;
-    newNodo -> ptrDer = NULL;
-    newNodo -> ptrIzq = NULL;
-    return newNodo;
-}
-int insertarNodo(struct Nodo **ptrRaiz,int dato){
-    if(*ptrRaiz == NULL){
-        *ptrRaiz = createNodo(dato);
-    }else if(((*ptrRaiz)->dato)>dato){
-        insertarNodo(&((*ptrRaiz)->ptrIzq),dato);
-    }else{
-        insertarNodo(&((*ptrRaiz)->ptrDer),dato);
+    struct Nodo{
+        int dato;
+        struct Nodo *ptrIzq;
+        struct Nodo *ptrDer;
+    };
+    struct Nodo *createNodo(int dato){
+        struct Nodo *newNodo;
+        newNodo = (struct Nodo *) malloc(sizeof(struct Nodo));
+        newNodo -> dato = dato;
+        newNodo -> ptrDer = NULL;
+        newNodo -> ptrIzq = NULL;
+        return newNodo;
     }
-}
-void imprPreorder(struct Nodo **ptrRef){
-    struct Nodo *ptrRec;
-    ptrRec = *ptrRef;
-    if(ptrRec != NULL){
-        printf("\n Dato: %d ",ptrRec->dato);
-        imprPreorder(&(ptrRec->ptrIzq));
-        imprPreorder(&(ptrRec->ptrDer));
+    void insertarNodo(struct Nodo **ptrRaiz,int dato){
+        if(*ptrRaiz == NULL){
+            *ptrRaiz = createNodo(dato);
+        }else if(((*ptrRaiz)->dato)>dato){
+            insertarNodo(&((*ptrRaiz)->ptrIzq),dato);
+        }else{
+            insertarNodo(&((*ptrRaiz)->ptrDer),dato);
+        }
+    }
+    void imprPreorder(struct Nodo **ptrRef){
+        struct Nodo *ptrRec;
+        ptrRec = *ptrRef;
+        if(ptrRec != NULL){
+            printf("\n Dato: %d ",ptrRec->dato);
+            imprPreorder(&(ptrRec->ptrIzq));
+            imprPreorder(&(ptrRec->ptrDer));
+        }
+
+    }
+    void imprPostorder(struct Nodo **ptrRef){
+        struct Nodo *ptrRec;
+        ptrRec = *ptrRef;
+        if(ptrRec != NULL){
+            imprPostorder(&(ptrRec->ptrIzq));
+            imprPostorder(&(ptrRec->ptrDer));
+            printf("\n Dato: %d ",ptrRec->dato);
+        }
+    }
+    void imprimirInorder(struct Nodo **ptrRef){
+        struct Nodo *ptrRec;
+        ptrRec = *ptrRef;
+        if(ptrRec != NULL){
+            imprimirInorder(&(ptrRec->ptrIzq));
+            printf("\n Dato: %d ",ptrRec->dato);
+            imprimirInorder(&(ptrRec->ptrDer));
+        }
+    }
+    int imprimirArbol(struct Nodo *ptrRaiz,int contador){
+        int i,j;
+        i = contador;
+        if(ptrRaiz != NULL){
+            imprimirArbol(ptrRaiz -> ptrDer,i++);
+            printf("\n");
+            for(j=1;j < i; j++) printf(" - ");
+            printf(" %d ",ptrRaiz -> dato);
+            imprimirArbol(ptrRaiz -> ptrIzq,i++);
+        }
+        return 0;
+    }
+    int sumarNodo(struct Nodo **ptrRef){
+        if(*ptrRef == NULL) return 0;
+        return (*ptrRef) -> dato + sumarNodo(&((*ptrRef) -> ptrDer)) + sumarNodo(&((*ptrRef) -> ptrIzq)); 
+    }
+    int contarNodos(struct Nodo **ptrRef){
+        if(*ptrRef == NULL) return 0;
+        return (1 + contarNodos(&((*ptrRef) -> ptrDer)) + contarNodos(&((*ptrRef) -> ptrIzq)));
+    }
+    int contarNodosHoja(struct Nodo **ptrRef){
+        if(*ptrRef == NULL) return 0;
+        if((*ptrRef) -> ptrDer == NULL && (*ptrRef) -> ptrIzq == NULL) return 1;
+        return (contarNodosHoja(&((*ptrRef) -> ptrDer)) + contarNodosHoja(&((*ptrRef) -> ptrIzq)));
+    }
+    int sumarNodosHoja(struct Nodo **ptrRef) {
+        if(*ptrRef == NULL) return 0;
+        if((*ptrRef)->ptrDer == NULL && (*ptrRef)->ptrIzq == NULL) return (*ptrRef)->dato; 
+        return (sumarNodosHoja(&((*ptrRef)->ptrDer)) + sumarNodosHoja(&((*ptrRef)->ptrIzq)));
+    } 
+
+    int sumarNodosInternos(struct Nodo **ptrRef) {
+        if(*ptrRef == NULL) return 0;
+        if((*ptrRef)->ptrDer != NULL || (*ptrRef)->ptrIzq != NULL) 
+            return (*ptrRef)->dato + sumarNodosInternos(&((*ptrRef)->ptrDer)) + sumarNodosInternos(&((*ptrRef)->ptrIzq));
+    
+        return sumarNodosInternos(&((*ptrRef)->ptrDer)) + sumarNodosInternos(&((*ptrRef)->ptrIzq));
+    }
+    int contarNodosInternos(struct Nodo **ptrRef) {
+        if(*ptrRef == NULL) return 0;
+        return (((*ptrRef)->ptrDer != NULL || (*ptrRef)->ptrIzq != NULL) ? 1 : 0)+contarNodosInternos(&((*ptrRef)->ptrDer)) 
+           + contarNodosInternos(&((*ptrRef)->ptrIzq));
+    }
+    int contarNodosPares(struct Nodo **ptrRef){
+        if(*ptrRef == NULL) return 0;
+        if((*ptrRef)->dato % 2 != 0) return 0;
+        return (1 + contarNodosPares(&((*ptrRef) -> ptrDer)) + contarNodosPares(&((*ptrRef) -> ptrIzq)));
+    }
+    int sumarNodosPares(struct Nodo **ptrRef){
+        if(*ptrRef == NULL) return 0;
+        if((*ptrRef)->dato % 2 != 0) return 0;
+        return ((*ptrRef)->dato + sumarNodosPares(&((*ptrRef) -> ptrDer)) + sumarNodosPares(&((*ptrRef) -> ptrIzq)));
+    }
+    void imprimirDescend(struct Nodo **ptrRef){
+        struct Nodo *ptrRec;
+        ptrRec = *ptrRef;
+        if(ptrRec != NULL){
+            imprimirDescend(&(ptrRec->ptrDer));
+            printf("\n Dato: %d ",ptrRec->dato);
+            imprimirDescend(&(ptrRec->ptrIzq));
+        }
+    }
+    int encontrarElemGrande(struct Nodo **ptrRef){
+        if(*ptrRef == NULL) return 0;
+        if((*ptrRef)->ptrDer == NULL) return (*ptrRef)->dato;
+        return encontrarElemGrande(&((*ptrRef)->ptrDer)); 
+    }
+    int encontrarElemMenor(struct Nodo **ptrRef){
+        if(*ptrRef == NULL) return 0;
+        if((*ptrRef)->ptrIzq == NULL) return (*ptrRef)->dato;
+        return encontrarElemMenor(&((*ptrRef)->ptrIzq)); 
+    }
+    void nodosLigadosMay(struct Nodo **ptrRef, int dato) {
+        if(*ptrRef != NULL) {
+            nodosLigadosMay(&((*ptrRef)->ptrDer), dato);
+            if((*ptrRef)->dato > dato) printf("%d ", (*ptrRef)->dato);
+            nodosLigadosMay(&((*ptrRef)->ptrIzq), dato); 
+        }
+    }
+    void nodosLigadosMen(struct Nodo **ptrRef, int dato) {
+        if(*ptrRef != NULL) {
+        nodosLigadosMen(&((*ptrRef)->ptrDer), dato);
+        if((*ptrRef)->dato < dato) printf("%d ", (*ptrRef)->dato);
+        nodosLigadosMen(&((*ptrRef)->ptrIzq), dato); 
+        }
+    }   
+    int sumaNodosLigadosMay(struct Nodo **ptrRef, int dato) {
+        if(*ptrRef == NULL) return 0;
+        int suma = 0;
+        if((*ptrRef)->dato > dato) suma = (*ptrRef)->dato;
+        return suma + sumaNodosLigadosMay(&((*ptrRef)->ptrDer), dato) + sumaNodosLigadosMay(&((*ptrRef)->ptrIzq), dato);
     }
 
-}
-void imprPostorder(struct Nodo **ptrRef){
-    struct Nodo *ptrRec;
-    ptrRec = *ptrRef;
-    if(ptrRec != NULL){
-        printf("\n Dato: %d ",ptrRec->dato);
-        imprPostorder(&(ptrRec->ptrIzq));
-        imprPostorder(&(ptrRec->ptrDer));
+    int sumaNodosLigadosMen(struct Nodo **ptrRef, int dato) {
+        if(*ptrRef == NULL) return 0;
+        int suma = 0;
+        if((*ptrRef)->dato < dato) suma = (*ptrRef)->dato;
+        return suma + sumaNodosLigadosMen(&((*ptrRef)->ptrDer), dato) +  sumaNodosLigadosMen(&((*ptrRef)->ptrIzq), dato);
     }
-}
-void imprimirInorder(struct Nodo **ptrRef){
-    struct Nodo *ptrRec;
-    ptrRec = *ptrRef;
-    if(ptrRec != NULL){
-        imprimirInorder(&(ptrRec->ptrIzq));
-        printf("\n Dato: %d ",ptrRec->dato);
-        imprimirInorder(&(ptrRec->ptrDer));
+
+    int contarNodosLigadosMay(struct Nodo **ptrRef, int dato) {
+        if(*ptrRef == NULL) return 0;
+        int contador = 0;
+        if((*ptrRef)->dato > dato) contador = 1;
+        return contador + contarNodosLigadosMay(&((*ptrRef)->ptrDer), dato) + contarNodosLigadosMay(&((*ptrRef)->ptrIzq), dato);
     }
+
+int contarNodosLigadosMen(struct Nodo **ptrRef, int dato) {
+    if(*ptrRef == NULL) return 0;
+    int contador = 0;
+    if((*ptrRef)->dato < dato) contador = 1;
+    return contador + contarNodosLigadosMen(&((*ptrRef)->ptrDer), dato) + 
+           contarNodosLigadosMen(&((*ptrRef)->ptrIzq), dato);
 }
 int menu(){
     int opc;
@@ -57,13 +171,29 @@ int menu(){
     printf("\n2.Imprimir inorder");
     printf("\n3.Imprimir preorder");
     printf("\n4.Imprimir postorder");
-    printf("\n5.Salir");
+    printf("\n5.Imprimir arbol");
+    printf("\n6.Sumar Nodos");
+    printf("\n7.Contar Nodos");
+    printf("\n8.Contar Nodos Hoja");
+    printf("\n9.Sumar Nodos Hoja");
+    printf("\n10.Contar Nodos Internos");
+    printf("\n11.Sumar Nodos Internos");
+    printf("\n12.Contar Nodos pares");
+    printf("\n13.Sumar Nodos pares");
+    printf("\n14.Imprimir descendente");
+    printf("\n15.Nodo Mayor");
+    printf("\n16.Nodo Menor");
+    printf("\n17.Nodos ligados(mayor)");
+    printf("\n18.Suma Nodos ligados(mayor)");
+    printf("\n19.Numero Nodos ligados(mayor)");
+    printf("\n20.Salir");
     printf("\nIngresa opcion:");
     scanf("%d",&opc);
     return opc;
 }
+
 int main(){
-    struct Nodo *ptrRef1,**ptrRef2;
+    struct Nodo *ptrRef1, **ptrRef2;
     int dato;
     ptrRef1 = NULL;
     ptrRef2 = &ptrRef1;
@@ -85,6 +215,68 @@ int main(){
             imprPostorder(ptrRef2);
             break;
         case 5:
+            imprimirArbol(ptrRef1,1);
+            break;
+        case 6:
+            printf("\nTOTAL DE SUMA DE LOS NODOS: %d", sumarNodo(ptrRef2));
+            break;
+        case 7:
+            printf("\nNODOS INGRESADOS: %d", contarNodos(ptrRef2));
+            break;
+        case 8:
+            printf("\nNODOS HOJA: %d", contarNodosHoja(ptrRef2));
+            break;
+        case 9:
+            printf("\nSUMA NODOS HOJA: %d", sumarNodosHoja(ptrRef2));
+            break;
+        case 10:
+            printf("\nNODOS INTERNOS: %d", contarNodosInternos(ptrRef2));  // Corregido
+            break;
+        case 11:
+            printf("\nSUMA NODOS INTERNOS: %d", sumarNodosInternos(ptrRef2));  // Corregido
+            break;
+        case 12:
+            printf("\nNODOS PARES: %d", contarNodosPares(ptrRef2));  // Corregido
+            break;
+        case 13:
+            printf("\nSUMA NODOS PARES: %d", sumarNodosPares(ptrRef2));  // Corregido
+            break;
+        case 14:
+            imprimirDescend(ptrRef2);
+            break;
+        case 15:
+            printf("\nNODO MAYOR: %d", encontrarElemGrande(ptrRef2));  // Corregido
+            break;
+        case 16:
+            printf("\nNODO MENOR: %d", encontrarElemMenor(ptrRef2));  // Corregido
+            break;
+        case 17: {
+            int valor;
+            printf("\nIngrese valor de referencia: ");
+            scanf("%d", &valor);
+            printf("\nNodos mayores a %d: ", valor);
+            nodosLigadosMay(ptrRef2, valor);
+            printf("\n");
+            break;
+        }
+        case 18: {
+            int valor;
+            printf("\nIngrese valor de referencia: ");
+            scanf("%d", &valor);
+            printf("\nSUMA NODOS MAYORES A %d: %d", valor, sumaNodosLigadosMay(ptrRef2, valor));
+            printf("\n");
+            break;
+        }
+        case 19: {
+            int valor;
+            printf("\nIngrese valor de referencia: ");
+            scanf("%d", &valor);
+            printf("\nNUMERO NODOS MAYORES A %d: %d", valor, contarNodosLigadosMay(ptrRef2, valor));
+            printf("\n");
+            break;
+        }
+        case 20:
+            printf("\nSaliendo del programa...\n");
             exit(0);
             break;    
         default:
@@ -92,6 +284,5 @@ int main(){
             break;
         }
     }
-
     return 0;
 }
