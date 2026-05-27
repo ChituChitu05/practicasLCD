@@ -138,32 +138,31 @@
     }   
     int sumaNodosLigadosMay(struct Nodo **ptrRef, int dato) {
         if(*ptrRef == NULL) return 0;
-        int suma = 0;
-        if((*ptrRef)->dato > dato) suma = (*ptrRef)->dato;
-        return suma + sumaNodosLigadosMay(&((*ptrRef)->ptrDer), dato) + sumaNodosLigadosMay(&((*ptrRef)->ptrIzq), dato);
+        return ((*ptrRef)->dato > dato ? (*ptrRef)->dato : 0) 
+            + sumaNodosLigadosMay(&((*ptrRef)->ptrDer), dato) 
+            + sumaNodosLigadosMay(&((*ptrRef)->ptrIzq), dato);
     }
 
     int sumaNodosLigadosMen(struct Nodo **ptrRef, int dato) {
         if(*ptrRef == NULL) return 0;
-        int suma = 0;
-        if((*ptrRef)->dato < dato) suma = (*ptrRef)->dato;
-        return suma + sumaNodosLigadosMen(&((*ptrRef)->ptrDer), dato) +  sumaNodosLigadosMen(&((*ptrRef)->ptrIzq), dato);
+        return ((*ptrRef)->dato < dato ? (*ptrRef)->dato : 0) 
+            + sumaNodosLigadosMen(&((*ptrRef)->ptrDer), dato) 
+            + sumaNodosLigadosMen(&((*ptrRef)->ptrIzq), dato);
     }
 
     int contarNodosLigadosMay(struct Nodo **ptrRef, int dato) {
         if(*ptrRef == NULL) return 0;
-        int contador = 0;
-        if((*ptrRef)->dato > dato) contador = 1;
-        return contador + contarNodosLigadosMay(&((*ptrRef)->ptrDer), dato) + contarNodosLigadosMay(&((*ptrRef)->ptrIzq), dato);
+        return ((*ptrRef)->dato > dato ? 1 : 0) 
+            + contarNodosLigadosMay(&((*ptrRef)->ptrDer), dato) 
+            + contarNodosLigadosMay(&((*ptrRef)->ptrIzq), dato);
     }
 
-int contarNodosLigadosMen(struct Nodo **ptrRef, int dato) {
-    if(*ptrRef == NULL) return 0;
-    int contador = 0;
-    if((*ptrRef)->dato < dato) contador = 1;
-    return contador + contarNodosLigadosMen(&((*ptrRef)->ptrDer), dato) + 
-           contarNodosLigadosMen(&((*ptrRef)->ptrIzq), dato);
-}
+    int contarNodosLigadosMen(struct Nodo **ptrRef, int dato) {
+        if(*ptrRef == NULL) return 0;
+        return ((*ptrRef)->dato < dato ? 1 : 0) 
+            + contarNodosLigadosMen(&((*ptrRef)->ptrDer), dato) 
+            + contarNodosLigadosMen(&((*ptrRef)->ptrIzq), dato);
+    }
 int menu(){
     int opc;
     printf("\nMenu");
@@ -230,25 +229,25 @@ int main(){
             printf("\nSUMA NODOS HOJA: %d", sumarNodosHoja(ptrRef2));
             break;
         case 10:
-            printf("\nNODOS INTERNOS: %d", contarNodosInternos(ptrRef2));  // Corregido
+            printf("\nNODOS INTERNOS: %d", contarNodosInternos(ptrRef2)); 
             break;
         case 11:
-            printf("\nSUMA NODOS INTERNOS: %d", sumarNodosInternos(ptrRef2));  // Corregido
+            printf("\nSUMA NODOS INTERNOS: %d", sumarNodosInternos(ptrRef2)); 
             break;
         case 12:
-            printf("\nNODOS PARES: %d", contarNodosPares(ptrRef2));  // Corregido
+            printf("\nNODOS PARES: %d", contarNodosPares(ptrRef2)); 
             break;
         case 13:
-            printf("\nSUMA NODOS PARES: %d", sumarNodosPares(ptrRef2));  // Corregido
+            printf("\nSUMA NODOS PARES: %d", sumarNodosPares(ptrRef2)); 
             break;
         case 14:
             imprimirDescend(ptrRef2);
             break;
         case 15:
-            printf("\nNODO MAYOR: %d", encontrarElemGrande(ptrRef2));  // Corregido
+            printf("\nNODO MAYOR: %d", encontrarElemGrande(ptrRef2)); 
             break;
         case 16:
-            printf("\nNODO MENOR: %d", encontrarElemMenor(ptrRef2));  // Corregido
+            printf("\nNODO MENOR: %d", encontrarElemMenor(ptrRef2));
             break;
         case 17: {
             int valor;
